@@ -1,5 +1,8 @@
 import type { APIRoute } from "astro";
-import { db, Feedback, eq, sql } from "astro:db";
+import { PrismaClient } from "@prisma/client";  // Aquí estamos importando el cliente de Prisma
+
+// Instanciamos el cliente de Prisma
+const prisma = new PrismaClient();
 
 /**
  * Handles POST requests to submit or retrieve feedback data for a specific `slug`.
@@ -19,15 +22,14 @@ export const POST: APIRoute = async ({ request }) => {
     const data = await request.json();
     const { slug, type } = data;
 
+    // Verificar que el 'slug' existe y que 'type' sea válido si se proporciona
     if (!slug || (type && type !== "helpful" && type !== "notHelpful")) {
-      // If there is no 'type', return feedback data instead of submitting
-      const feedback = await db
-        .select()
-        .from(Feedback)
-        .where(eq(Feedback.slug, slug))
-        .then((rows) => rows[0] || { helpful: 0, notHelpful: 0 });
+      // Si no hay 'type', retornar los datos existentes de feedback
+      const feedback = await prisma.feedback.findFirst({
+        where: { slug },
+      });
 
-      return new Response(JSON.stringify(feedback), {
+      return new Response(JSON.stringify(feedback || { helpful: 0, notHelpful: 0 }), {
         status: 200,
         headers: {
           "Content-Type": "application/json",
@@ -36,35 +38,21 @@ export const POST: APIRoute = async ({ request }) => {
       });
     }
 
-    // If type exists, handle feedback submission as before
+    // Si 'type' existe, manejar la sumatoria de feedback
     let updatedFeedback;
 
     if (type === "helpful") {
-      updatedFeedback = await db
-        .insert(Feedback)
-        .values({ slug, helpful: 1 })
-        .onConflictDoUpdate({
-          target: Feedback.slug,
-          set: { helpful: sql`helpful + 1` },
-        })
-        .returning({
-          helpful: Feedback.helpful,
-          notHelpful: Feedback.notHelpful,
-        })
-        .then((res) => res[0]);
+      updatedFeedback = await prisma.feedback.upsert({
+        where: { slug },
+        update: { helpful: { increment: 1 } },
+        create: { slug, helpful: 1, notHelpful: 0 },
+      });
     } else {
-      updatedFeedback = await db
-        .insert(Feedback)
-        .values({ slug, notHelpful: 1 })
-        .onConflictDoUpdate({
-          target: Feedback.slug,
-          set: { notHelpful: sql`notHelpful + 1` },
-        })
-        .returning({
-          helpful: Feedback.helpful,
-          notHelpful: Feedback.notHelpful,
-        })
-        .then((res) => res[0]);
+      updatedFeedback = await prisma.feedback.upsert({
+        where: { slug },
+        update: { notHelpful: { increment: 1 } },
+        create: { slug, helpful: 0, notHelpful: 1 },
+      });
     }
 
     return new Response(JSON.stringify(updatedFeedback), {
@@ -77,5 +65,7 @@ export const POST: APIRoute = async ({ request }) => {
   } catch (error) {
     console.error("Error handling feedback:", error);
     return new Response("Internal server error", { status: 500 });
+  } finally {
+    await prisma.$disconnect(); // Cerramos la conexión a la base de datos
   }
 };
