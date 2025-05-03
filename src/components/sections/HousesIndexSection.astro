@@ -1,0 +1,50 @@
+---
+import HouseCard from "@/components/common/HousesIndexContent.astro";
+import Button from "../ui/Button.astro";
+
+const casas = [
+  {
+    title: "Casa 1",
+    description: "Acogedora y luminosa, ideal para 6 personas. Disfruta de la chimenea, terraza con barbacoa y el silencio del bosque.",
+    image: "/CasaRural1.png",
+    link: "/houseInfo1"
+  },
+  {
+    title: "Casa 2",
+    description: "Acogedora y luminosa, ideal para 6 personas. Disfruta de la chimenea, terraza con barbacoa y el silencio del bosque.",
+    image: "/CasaRural1.png",
+    link: "/houseInfo2"
+  },
+  {
+    title: "Casa 3",
+    description: "Acogedora y luminosa, ideal para 6 personas. Disfruta de la chimenea, terraza con barbacoa y el silencio del bosque.",
+    image: "/CasaRural1.png",
+    link: "/houseInfo3"
+  }
+];
+---
+
+<section class="py-20 bg-gray-50" id="casas">
+
+  <div class="max-w-7xl mx-auto px-4">
+    <h2 class="text-3xl font-bold text-slate-800 mb-12 text-center">
+      Nuestras casas
+    </h2>
+
+    <div class="grid gap-8 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+      {casas.map((casa) => (
+        <HouseCard {...casa} />
+      ))}
+    </div>
+  </div>
+
+  <div class="mt-25 px-4 flex justify-center">
+    <a 
+      href="/housesBooking"
+      class="bg-slate-800 text-white hover:bg-slate-700 font-bold text-xl py-5 px-10 rounded-2xl w-full max-w-xl text-center shadow-lg transition-all duration-300"
+    >
+      RESERVAR AHORA
+    </a>
+  </div>
+
+</section>

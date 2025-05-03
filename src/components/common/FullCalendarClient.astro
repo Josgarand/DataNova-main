@@ -1,0 +1,23 @@
+---
+// IMPORT CALENDARIO
+import { Calendar } from '@fullcalendar/core';
+import dayGridPlugin from '@fullcalendar/daygrid';
+
+// TEST CALENDARIO
+
+const calendarEl = document.getElementById('calendar');
+if (calendarEl) {
+  const calendar = new Calendar(calendarEl, {
+    plugins: [dayGridPlugin],
+    initialView: 'dayGridMonth',
+    events: [
+      { title: 'Reservado', start: '2025-04-15', end: '2025-04-17' },
+      { title: 'Reservado', start: '2025-04-22' },
+    ],
+  });
+
+  calendar.render();
+}
+---
+
+<div id="calendar"></div>

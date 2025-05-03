@@ -1,0 +1,121 @@
+---
+import BaseLayout from "@/layout/BaseLayout.astro";
+
+
+
+---
+
+
+<BaseLayout>
+    <section class="bg-linear-to-b/oklch from-teal-200 via-transparent to-white">
+
+    <div class="mx-auto max-w-[85rem] space-y-8 px-4 pb-12 pt-48 sm:px-6 lg:px-8">
+
+    <div class="max-w-6xl mb-15 mx-auto px-4 space-y-16">
+    
+        <!-- Casa 1 -->
+        <div class="flex flex-col md:flex-row mb-35 gap-8 items-center">
+          <div class="w-full md:w-1/2 h-64 bg-gray-200 flex items-center justify-center text-gray-500 text-lg">
+            <img src="/CasaRural1.png" alt="Casa rural" class="rounded-xl shadow-lg w-full object-cover" />
+
+          </div>
+          <div class="w-full md:w-1/2 space-y-4">
+            <h2 class="text-2xl font-bold">Nombre de la casa 1</h2>
+            <p class="font-semibold">ubicación</p>
+            <p class="text-gray-600">
+              Rodeada de naturaleza y con vistas a la montaña. Casa El Roble es perfecta para desconectar. Con capacidad para 6 personas, cuenta con chimenea, cocina equipada y una terraza con barbacoa. Ideal para escapadas en familia o con amigos.
+            </p>
+            <a href = "/booking1" class="bg-slate-800 text-white px-6 py-2 rounded-md hover:bg-slate-700">
+              Reservar ahora
+            </a>
+          </div>
+        </div>
+    
+       
+<!-- Carrusel de imágenes -->
+<div class="relative mt-10 px-10">
+  <!-- Carrusel -->
+  <div class="swiper mySwiper rounded-xl overflow-hidden shadow-lg h-[400px]">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <img src="/CasaRural1.png" alt="Imagen de la casa rural" class="w-full h-full object-cover" />
+      </div>
+      <div class="swiper-slide">
+        <img src="/CasaRural1.png" alt="Imagen de la casa rural" class="w-full h-full object-cover" />
+      </div>
+      <div class="swiper-slide">
+        <img src="/CasaRural1.png" alt="Imagen de la casa rural" class="w-full h-full object-cover" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Flechas con estilo simple y color teal-200 -->
+  <div class="swiper-button-prev !absolute !top-1/2 !left-1 -translate-y-1/2 
+              !text-teal-700 !text-4xl z-10"></div>
+
+  <div class="swiper-button-next !absolute !top-1/2 !right-1 -translate-y-1/2 
+              !text-teal-700 !text-4xl z-10"></div>
+
+  <!-- Paginación debajo -->
+  <div class="swiper-pagination mt-3 text-center !static"></div>
+
+</div>
+
+
+
+
+
+<!-- Ruta -->
+<div class="flex flex-col md:flex-row-reverse mb-35 gap-8 items-center bg-gray-50 p-6 rounded-lg">
+  <div class="w-full md:w-1/2 h-64 bg-gray-200 flex items-center justify-center text-gray-500 text-lg">
+    <img src="/CasaRural1.png" alt="Casa rural" class="rounded-xl shadow-lg w-full object-cover" />
+
+  </div>
+  <div class="w-full md:w-1/2 space-y-4 ">
+    <h2 class="text-2xl font-bold">Nombre de la casa 2</h2>
+    <p class="font-semibold">ubicación</p>
+    <p class="text-gray-600">
+      Rodeada de naturaleza y con vistas a la montaña. Casa El Roble es perfecta para desconectar. Con capacidad para 6 personas, cuenta con chimenea, cocina equipada y una terraza con barbacoa. Ideal para escapadas en familia o con amigos.
+    </p>
+   
+  </div>
+</div>
+    
+      </div>
+</div>
+
+
+
+</section>
+
+
+</BaseLayout>
+
+
+
+
+<!-- Estilos y JS del carrusel -->
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+/>
+
+<!-- Script usando import dinámico + astro:page-load -->
+<script type="module">
+  document.addEventListener('astro:page-load', () => {
+    import('https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs').then(({ default: Swiper }) => {
+      new Swiper('.mySwiper', {
+        loop: true,
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev'
+        },
+      });
+    });
+  });
+
+

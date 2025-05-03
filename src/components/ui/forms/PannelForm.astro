@@ -1,0 +1,37 @@
+---
+// ReservasList.astro
+export interface Reserva {
+  nombre: string;
+  fecha: string;
+}
+
+export interface Props {
+  titulo: string;
+  reservas: Reserva[];
+  tipo: "pendiente" | "aceptada";
+}
+
+const { titulo, reservas, tipo } = Astro.props;
+---
+
+<div class="mb-8">
+  <h3 class="text-2xl font-bold mb-4">{titulo}</h3>
+  <div class="space-y-4">
+    {reservas.map((reserva) => (
+      <div class="flex items-center justify-between border px-4 py-2 rounded-md bg-white shadow-sm">
+        <span>{`Reserva ${reserva.nombre}, ${reserva.fecha}`}</span>
+        <div class="flex space-x-4">
+          {tipo === "pendiente" && (
+            <>
+              <button class="text-green-600 hover:text-green-800 text-2xl">✔️</button>
+              <button class="text-red-600 hover:text-red-800 text-2xl">❌</button>
+            </>
+          )}
+          {tipo === "aceptada" && (
+            <button class="text-red-600 hover:text-red-800 text-2xl">❌</button>
+          )}
+        </div>
+      </div>
+    ))}
+  </div>
+</div>

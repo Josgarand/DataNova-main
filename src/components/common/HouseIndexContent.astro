@@ -1,0 +1,56 @@
+---
+import Button from "@ui/Button.astro";
+
+const title = "Turn Excel® into Your Data Intelligence Powerhouse";
+const subTitle =
+  "Get instant insights from your spreadsheets with advanced analytics and stunning visualizations. No coding required. Make confident decisions backed by data in minutes, not days.";
+const secondaryCTA = { text: "Start Free Trial", href: "https://github.com/mearashadowfax/DataNova" };
+const primaryCTA = { text: "View Pricing", href: "/downloads/license-options" };
+
+
+
+
+// Data describing the "About" section content
+const houseData = {
+  title: "Escápate a la naturaleza",
+  description:
+    "Descubre nuestras tres casas en plena naturaleza. Tranquilidad, comodidad y aire puro te esperan para que desconectes como mereces.",
+  description_subtitle: 
+  "Bienvenido a tu escapada rural.",
+};
+
+---
+
+<div class="max-w-7xl mx-auto px-4">
+  <div class="flex flex-col lg:flex-row items-center gap-12">
+    
+    <!-- Texto a la izquierda -->
+    <div class="max-w-2xl lg:w-1/2">
+      <h1 class="text-balance text-4xl text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl mb-8">
+        {houseData.title}
+      </h1>
+
+      <p class="font-bold text-lg text-slate-700 sm:text-xl mb-4">
+        {houseData.description_subtitle}
+      </p>
+
+      <p class="text-lg font-medium text-slate-700 sm:text-xl">
+        {houseData.description}
+      </p>
+
+      <Button
+      href="#casas"
+      variant="primary"
+      className="mt-7 inline-flex border-none px-3.5!">{"ver casas"}</Button>
+    </div>
+
+    <!-- Imagen a la derecha -->
+    <div class="lg:w-1/2">
+      <img src="/CasaRural1.png" alt="Casa rural" class="rounded-xl shadow-lg w-full object-cover" />
+    </div>
+
+  </div>
+</div>
+
+
+

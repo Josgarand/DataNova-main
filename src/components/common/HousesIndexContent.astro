@@ -1,0 +1,23 @@
+---
+import Button from "../ui/Button.astro";
+
+// src/components/common/HouseCard.astro
+const { title, description, image, link } = Astro.props;
+---
+
+<div class="bg-teal-200 rounded-xl shadow-md p-4 text-center flex flex-col">
+  <img
+    src={image}
+    alt={title}
+    class="w-full h-48 object-cover rounded-md mb-4"
+  />
+
+  <h3 class="font-bold text-lg">{title}</h3>
+  <p class="text-sm text-gray-600 mt-2 mb-4">{description}</p>
+
+  <Button href={link} variant="primary" className="border-none px-3.5!">{"ver casa"}</Button>
+
+</div>
+
+
+
