@@ -15,7 +15,7 @@
     "@astrojs/markdoc": "^0.13.3",
     "@astrojs/react": "^4.2.3",
     "@astrojs/svelte": "^7.0.9",
-    "@astrojs/vercel": "^8.0.4",
+    "@astrojs/vercel": "^8.1.4",
     "@fullcalendar/core": "^6.1.17",
     "@fullcalendar/daygrid": "^6.1.17",
     "@keystatic/astro": "^5.0.4",
