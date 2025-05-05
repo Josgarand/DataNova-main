@@ -6,6 +6,12 @@
   import { formatDate } from "@utils/utils";
   import { getReadingTime } from "@utils/reading-time";
   import { getEntry, render } from "astro:content";
+  export const prerender = false;
+
+
+
+
+  
 
   // 1. Get the slug from the incoming server request
   const { id } = Astro.params;
