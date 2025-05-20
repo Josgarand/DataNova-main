@@ -4,13 +4,13 @@ export const featuresMenu = [
     items: [
       {
         icon: "home",
-        title: "House 1",
+        title: "El lavadero",
         description: "Ubicacion de la casa 1.",
         href: "./houseInfo1",
       },
       {
         icon: "home",
-        title: "House 2",
+        title: "Casa Ricardo piso 1",
         description: "Ubicacion de la casa 2",
         href: "./houseInfo2",
       },
@@ -21,7 +21,7 @@ export const featuresMenu = [
     items: [
       {
         icon: "home",
-        title: "House 3",
+        title: "Casa Ricardo piso 2",
         description: "Ubicacion de la casa 3",
         href: "./houseInfo3",
       },
