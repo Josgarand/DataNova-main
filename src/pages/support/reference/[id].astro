@@ -6,6 +6,9 @@ import { formatDate } from "@utils/utils";
 import { getReadingTime } from "@utils/reading-time";
 import { getEntry, render } from "astro:content";
 
+export const prerender = false;
+
+
 // 1. Get the slug from the incoming server request
 const { id } = Astro.params;
 if (id === undefined) {
@@ -27,13 +30,7 @@ const validHeadings = headings.filter((heading) => heading.depth === 2);
 const readingTime = getReadingTime(post.body ?? "");
 const slug = id;
 
-export async function getStaticPaths() {
-  return [
-    { params: { id: "articulo-1" } },
-    { params: { id: "articulo-2" } },
-    // ...añade todos los ids que quieras renderizar como HTML
-  ];
-}
+
 ---
 
 <BaseLayout>
