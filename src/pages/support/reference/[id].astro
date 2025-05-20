@@ -26,6 +26,14 @@ const { Content, headings } = await render(post);
 const validHeadings = headings.filter((heading) => heading.depth === 2);
 const readingTime = getReadingTime(post.body ?? "");
 const slug = id;
+
+export async function getStaticPaths() {
+  return [
+    { params: { id: "articulo-1" } },
+    { params: { id: "articulo-2" } },
+    // ...añade todos los ids que quieras renderizar como HTML
+  ];
+}
 ---
 
 <BaseLayout>
