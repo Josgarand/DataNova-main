@@ -1,0 +1,64 @@
+---
+import BaseLayout from "@/layout/BaseLayout.astro";
+
+
+
+---
+
+
+<BaseLayout>
+    <section class="bg-linear-to-b/oklch pt-35 pb-10 from-teal-200 via-transparent to-white">
+    <div class="max-w-6xl mx-auto px-6">
+      <h1 class="text-4xl font-bold mb-10 text-center text-slate-800">Actividades y Rutas</h1>
+      <p class="text-center text-lg text-gray-700 mb-16">
+        Disfruta de la naturaleza y el entorno rural con actividades disponibles para todos los visitantes, sin importar en qué casa estés alojado.
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-12">
+        <!-- Actividad 1 -->
+        <div class="flex flex-col md:flex-row gap-6">
+          <img src="/CasaRural1.png" alt="Ruta al Mirador" class="w-full md:w-40 h-40 object-cover rounded-xl shadow" />
+          <div>
+            <h3 class="text-xl font-semibold text-teal-700">Ruta al Mirador del Valle</h3>
+            <p class="text-gray-600">
+              Caminata de 2 horas entre bosques y arroyos, con vistas espectaculares del valle. Ideal para familias.
+            </p>
+          </div>
+        </div>
+
+        <!-- Actividad 2 -->
+        <div class="flex flex-col md:flex-row gap-6">
+          <img src="/CasaRural1.png" alt="Ruta en BTT" class="w-full md:w-40 h-40 object-cover rounded-xl shadow" />
+          <div>
+            <h3 class="text-xl font-semibold text-teal-700">Ruta en bicicleta de montaña</h3>
+            <p class="text-gray-600">
+              Recorrido circular de 15 km con caminos rurales y pistas forestales. Recomendado para niveles intermedios.
+            </p>
+          </div>
+        </div>
+
+        <!-- Actividad 3 -->
+        <div class="flex flex-col md:flex-row gap-6">
+          <img src="/CasaRural1.png" alt="Taller Artesanía" class="w-full md:w-40 h-40 object-cover rounded-xl shadow" />
+          <div>
+            <h3 class="text-xl font-semibold text-teal-700">Taller de artesanía local</h3>
+            <p class="text-gray-600">
+              Aprende técnicas tradicionales de cerámica o cestería. Actividad bajo reserva previa con artesanos del pueblo.
+            </p>
+          </div>
+        </div>
+
+        <!-- Actividad 4 -->
+        <div class="flex flex-col md:flex-row gap-6">
+          <img src="/CasaRural1.png" alt="Baño en el río" class="w-full md:w-40 h-40 object-cover rounded-xl shadow" />
+          <div>
+            <h3 class="text-xl font-semibold text-teal-700">Zona de baño en el río</h3>
+            <p class="text-gray-600">
+              Refresca tu día en el área natural habilitada para el baño, a solo 10 minutos andando desde cualquiera de las casas.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

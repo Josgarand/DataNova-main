@@ -10,7 +10,7 @@ export const featuresMenu = [
       },
       {
         icon: "home",
-        title: "Casa Ricardo piso 1",
+        title: "Casa Ricardo apartamento 1",
         description: "Ubicacion de la casa 2",
         href: "./houseInfo2",
       },
@@ -21,7 +21,7 @@ export const featuresMenu = [
     items: [
       {
         icon: "home",
-        title: "Casa Ricardo piso 2",
+        title: "Casa Ricardo apartamento 2",
         description: "Ubicacion de la casa 3",
         href: "./houseInfo3",
       },
