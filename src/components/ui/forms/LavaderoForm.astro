@@ -1,9 +1,9 @@
 ---
 const formStrings = {
-  name: "Nombre",
-  email: "Email",
-  phone: "Teléfono",
-  submit: "Reservar",
+  name: "Nombre *",
+  email: "Email *",
+  phone: "Teléfono *",
+  submit: "Solicitar reserva",
 };
 ---
 
@@ -47,7 +47,7 @@ const formStrings = {
         placeholder="Fecha de entrada" required aria-required="true" aria-labelledby="input-entrada-label" />
       <label id="input-entrada-label" for="input-entrada"
         class="pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600 peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600">
-        Fecha de entrada
+        Fecha de entrada *
       </label>
     </div>
 
@@ -57,7 +57,7 @@ const formStrings = {
         placeholder="Fecha de salida" required aria-required="true" aria-labelledby="input-salida-label" />
       <label id="input-salida-label" for="input-salida"
         class="pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600 peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600">
-        Fecha de salida
+        Fecha de salida *
       </label>
     </div>
   </fieldset>

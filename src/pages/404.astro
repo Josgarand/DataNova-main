@@ -1,7 +1,6 @@
 ---
 import BaseLayout from "@layout/BaseLayout.astro";
-import Icon from "@ui/icons/Icon.astro";
-import Button from "@ui/Button.astro";
+
 import type { WithContext, Thing } from "schema-dts";
 
 export const pageContent = {
@@ -65,7 +64,7 @@ const schema: WithContext<Thing> = {
 
 <BaseLayout seo={seo} schema={schema}>
   <section
-    class="grid min-h-full place-items-center px-6 pb-10 pt-32 sm:pt-48 lg:px-8"
+    class="grid min-h-full place-items-center px-6 pb-60 pt-50 sm:pt-48 lg:px-8"
   >
     <div class="text-center">
       <p class="text-xl font-semibold text-teal-600">
@@ -83,7 +82,7 @@ const schema: WithContext<Thing> = {
       </p>
     </div>
 
-    <div class="mx-auto w-full px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
+    <!-- <div class="mx-auto w-full px-4 py-10 sm:px-6 lg:px-8 lg:py-14">
       <div class="mx-auto w-full max-w-lg px-4 sm:px-6 lg:px-8">
         <ul class="divide-y divide-dashed divide-slate-300">
           {
@@ -114,7 +113,7 @@ const schema: WithContext<Thing> = {
         <Button id="go-back" variant="primary">{pageContent.goBackLabel}</Button
         >
       </div>
-    </div>
+    </div> -->
   </section>
 
   <script>

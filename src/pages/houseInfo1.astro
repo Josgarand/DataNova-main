@@ -23,6 +23,31 @@ import BaseLayout from "@/layout/BaseLayout.astro";
           </div>
         </div>
 
+
+        <!-- Detalles técnicos de la casa -->
+        <div class="flex flex-col md:flex-row-reverse mb-25 gap-8 items-center bg-gray-50 p-6 rounded-lg">
+          <div class="w-full md:w-1/2 h-64 bg-gray-200 flex items-center justify-center text-gray-500 text-lg">
+            <img src="/CasaRural1.png" alt="Casa rural" class="rounded-xl shadow-lg w-full object-cover" />
+          </div>
+          <div class="w-full md:w-1/2 space-y-4">
+            <h2 class="text-2xl font-bold text-slate-800">Características de la casa</h2>
+            <ul class="text-gray-700 list-disc list-inside space-y-2">
+              <li>3 habitaciones dobles:
+                <ul class="list-inside list-disc ml-5">
+                  <li>1 con cama de matrimonio y terraza</li>
+                  <li>1 con cama de matrimonio</li>
+                  <li>1 con dos camas individuales</li>
+                </ul>
+              </li>
+              <li>Salón-comedor amplio con chimenea y sofá cama</li>
+              <li>Cocina totalmente equipada con acceso al jardín</li>
+              <li>2 baños completos</li>
+              <li>Televisión, microondas y calefacción</li>
+              <li>Jardín privado y garaje</li>
+            </ul>
+          </div>
+        </div>
+
         <!-- Carrusel de imágenes -->
         <div class="relative mt-10 px-10">
           <div class="swiper mySwiper rounded-xl overflow-hidden shadow-lg h-[400px]">
@@ -47,29 +72,7 @@ import BaseLayout from "@/layout/BaseLayout.astro";
           <div class="swiper-pagination mt-3 text-center !static"></div>
         </div>
 
-        <!-- Detalles técnicos de la casa -->
-        <div class="flex flex-col md:flex-row-reverse mb-35 gap-8 items-center bg-gray-50 p-6 rounded-lg">
-          <div class="w-full md:w-1/2 h-64 bg-gray-200 flex items-center justify-center text-gray-500 text-lg">
-            <img src="/CasaRural1.png" alt="Casa rural" class="rounded-xl shadow-lg w-full object-cover" />
-          </div>
-          <div class="w-full md:w-1/2 space-y-4">
-            <h2 class="text-2xl font-bold text-slate-800">Características de la casa</h2>
-            <ul class="text-gray-700 list-disc list-inside space-y-2">
-              <li>3 habitaciones dobles:
-                <ul class="list-inside list-disc ml-5">
-                  <li>1 con cama de matrimonio y terraza</li>
-                  <li>1 con cama de matrimonio</li>
-                  <li>1 con dos camas individuales</li>
-                </ul>
-              </li>
-              <li>Salón-comedor amplio con chimenea y sofá cama</li>
-              <li>Cocina totalmente equipada con acceso al jardín</li>
-              <li>2 baños completos</li>
-              <li>Televisión, microondas y calefacción</li>
-              <li>Jardín privado y garaje</li>
-            </ul>
-          </div>
-        </div>
+        
       </div>
     </div>
   </section>
