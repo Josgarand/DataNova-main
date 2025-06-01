@@ -1,170 +1,103 @@
 ---
 import BaseLayout from "@layout/BaseLayout.astro";
-import Icon from "@ui/icons/Icon.astro";
-import ContactForm from "@ui/forms/ContactForm.astro";
 import type { WithContext, Thing } from "schema-dts";
-import FullCalendarClient from "@/components/common/FullCalendarClient.astro";
+import LavaderoForm from "@/components/ui/forms/LavaderoForm.astro";
 
-
-// const addressHeading = "Our address:";
-// const emailHeading = "Contact us by email:";
-// const knowledgeBaseHeading = "Knowledge base";
-
-// const contactDetails = {
-//   addressLine1: "1234 1st Ave Ste 300",
-//   addressLine2: "Seattle, WA 98104, USA",
-//   phone: "1 (833) 328-2669",
-//   email: "info@datanova.com",
-// };
-
-// const knowledgeBaseDetails = {
-//   description: "Browse through all of our knowledge base articles.",
-//   linkText: "Search the knowledge base",
-//   linkUrl: "/support/knowledge-base",
-// };
-
-// Content for the page title and subtitle
-const title = "Reservar El lavadero";
-const subTitle = "Questions, Comments or Feedback.";
-
-// SEO metadata for the page
+// Título y metadatos
+const title = "Reservar El Lavadero";
 const seo = {
-  title: "Contact DataNova",
-  description:
-    "Get in touch with DataNova for inquiries, support, and feedback. Reach out via email, phone, or visit our office.",
+  title: "Reservar El Lavadero",
+  description: "Consulta la disponibilidad y reserva El Lavadero.",
 };
 
-// Schema.org metadata for SEO
 const schema: WithContext<Thing> = {
   "@context": "https://schema.org",
   "@type": "ContactPage",
-  inLanguage: "en-US",
+  inLanguage: "es-ES",
   "@id": Astro.url.href,
   url: Astro.url.href,
-  name: "Contact DataNova",
-  description:
-    "Reach out to DataNova for any questions, support, or business inquiries. Our team is ready to assist you.",
+  name: "Reservar El Lavadero",
+  description: "Consulta la disponibilidad y reserva El Lavadero.",
   isPartOf: {
     "@type": "WebSite",
     url: `${Astro.site}`,
-    name: "DataNova",
-    description:
-      "DataNova Analytics Inc. provides advanced analytics for Excel to help businesses unlock actionable insights quickly with no coding required.",
+    name: "Casa Rural",
+    description: "Reserva alojamientos rurales en nuestra web.",
   },
 };
-
-
-
-
-
 ---
 
 <BaseLayout seo={seo} schema={schema}>
-
-  
   <div class="mx-auto max-w-[85rem] px-4 pb-28 pt-48 sm:px-6 lg:px-8">
-    
-
     <div class="grid grid-cols-1 gap-x-10 md:grid-cols-2 lg:gap-x-16">
-      <!-- <div class="mb-10 max-w-3xl lg:mb-14"> -->
-        
-        <!-- <p class="ml-1 mt-1 text-slate-600">{subTitle}</p> -->
-      <!-- </div> -->
       <div>
-        <h2
-            class="text-balance text-4xl text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl"
-          >
-            {title}
+        <h2 class="text-balance text-4xl text-slate-800 sm:text-5xl md:text-6xl lg:text-7xl">
+          {title}
         </h2>
 
-        <div class="mb-10 rounded-xl h-[400px] bg-teal-400 pb-10 md:mb-0 md:pb-0">
-
-          <ContactForm />
+        <div class="mb-10 rounded-xl h-[430px] bg-teal-400 pb-10 md:mb-0 md:pb-0">
+          <LavaderoForm />
         </div>
       </div>
 
       <!-- CALENDARIO -->
-      <div id="calendar" class="min-h-[400px]"/>
+      <div id="calendar" data-casa="El Lavadero" class="min-h-[400px]"/>
     </div>
-
   </div>
 
+  <script type="module">
+    document.addEventListener('astro:page-load', setupCalendar);
+    document.addEventListener('astro:after-swap', setupCalendar);
 
-  
-      
- 
+    async function setupCalendar() {
+      const calendarEl = document.getElementById('calendar');
+      if (!calendarEl) return;
 
+      // Limpiar contenido anterior del calendario
+      calendarEl.innerHTML = "";
 
-  <script>
-    // Automatically adjusting the height of the textarea
-    // based on its content. Triggers when the textarea content changes.
-    document.addEventListener("astro:page-load", () => {
-      function textareaAutoHeight(
-        el: HTMLTextAreaElement,
-        offsetTop: number = 0,
-      ): void {
-        el.style.height = "auto";
-        el.style.height = `${el.scrollHeight + offsetTop}px`;
+      const nombreCasa = encodeURIComponent(calendarEl.dataset.casa || "El Lavadero");
+
+      // Sumar un día para que FullCalendar muestre eventos como barra
+      function addOneDay(fechaStr) {
+        const fecha = new Date(fechaStr);
+        fecha.setDate(fecha.getDate() + 2);
+        return fecha.toISOString().split('T')[0];
       }
 
-      (() => {
-        const textareas: string[] = ["#input-message"];
+      try {
+        const response = await fetch(`http://localhost:8080/booking/aceptadas/${nombreCasa}`);
+        const data = await response.json();
 
-        textareas.forEach((selector) => {
-          const textarea = document.querySelector(
-            selector,
-          ) as HTMLTextAreaElement;
+        const eventos = data.map((reserva) => ({
+          title: "Reservado",
+          start: reserva.fecha_ini,
+          end: addOneDay(reserva.fecha_fin),
+          display: 'block',
+        }));
 
-          if (!textarea) return;
+        const { Calendar } = await import('https://cdn.skypack.dev/@fullcalendar/core');
+        const dayGridPlugin = await import('https://cdn.skypack.dev/@fullcalendar/daygrid');
+        const esLocale = await import('https://cdn.skypack.dev/@fullcalendar/core/locales/es');
 
-          const overlay = textarea.closest(".hs-overlay");
-
-          if (overlay) {
-            const instance = (window as any).HSOverlay.getInstance(
-              overlay,
-              true,
-            );
-
-            if (instance) {
-              instance.element.on("open", () =>
-                textareaAutoHeight(textarea, 3),
-              );
+        const calendar = new Calendar(calendarEl, {
+          plugins: [dayGridPlugin.default],
+          initialView: 'dayGridMonth',
+          locale: esLocale.default,
+          events: eventos,
+          eventContent: function(arg) {
+            if (arg.isStart) {
+              return { html: `<div>${arg.event.title}</div>` };
+            } else {
+              return { html: `<div>&nbsp;</div>` };
             }
-          } else {
-            textareaAutoHeight(textarea, 3);
-          }
-
-          textarea.addEventListener("input", () => {
-            textareaAutoHeight(textarea, 3);
-          });
+          },
         });
-      })();
-    });
+
+        calendar.render();
+      } catch (err) {
+        console.error("Error cargando eventos:", err);
+      }
+    }
   </script>
 </BaseLayout>
-
-
-
-<script type="module">
-  document.addEventListener('astro:page-load', () => {
-    const calendarEl = document.getElementById('calendar');
-    if (calendarEl) {
-      import('https://cdn.skypack.dev/@fullcalendar/core').then(({ Calendar }) => {
-        import('https://cdn.skypack.dev/@fullcalendar/daygrid').then((dayGridPlugin) => {
-          import('https://cdn.skypack.dev/@fullcalendar/core/locales/es').then((esLocale) => {
-            const calendar = new Calendar(calendarEl, {
-              plugins: [dayGridPlugin.default],
-              initialView: 'dayGridMonth',
-              locale: esLocale.default, // <- aquí aplicamos español
-              events: [
-                { title: 'Reservado', start: '2025-04-15', end: '2025-04-17' },
-                { title: 'Reservado', start: '2025-04-22' },
-              ],
-            });
-            calendar.render();
-          });
-        });
-      });
-    }
-  });
-</script>

@@ -1,63 +1,115 @@
 ---
 import BaseLayout from "@/layout/BaseLayout.astro";
-
-
-
 ---
 
-
 <BaseLayout>
-    <section class="bg-linear-to-b/oklch pt-35 pb-10 from-teal-200 via-transparent to-white">
-    <div class="max-w-6xl mx-auto px-6">
-      <h1 class="text-4xl font-bold mb-10 text-center text-slate-800">Actividades y Rutas</h1>
-      <p class="text-center text-lg text-gray-700 mb-16">
+  <section class="bg-linear-to-b/oklch pt-35 pb-16 from-teal-200 via-transparent to-white">
+    <div class="max-w-7xl mx-auto px-6">
+      <h1 class="text-4xl font-bold mb-8 text-center text-slate-800">Actividades y Rutas</h1>
+      <p class="text-center text-lg text-gray-700 max-w-3xl mx-auto mb-16">
         Disfruta de la naturaleza y el entorno rural con actividades disponibles para todos los visitantes, sin importar en qué casa estés alojado.
       </p>
 
-      <div class="grid md:grid-cols-2 gap-12">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
         <!-- Actividad 1 -->
-        <div class="flex flex-col md:flex-row gap-6">
-          <img src="/CasaRural1.png" alt="Ruta al Mirador" class="w-full md:w-40 h-40 object-cover rounded-xl shadow" />
-          <div>
-            <h3 class="text-xl font-semibold text-teal-700">Ruta al Mirador del Valle</h3>
-            <p class="text-gray-600">
+        <article
+          class="bg-white rounded-xl shadow-md border-4 border-transparent
+                 hover:border-teal-400 hover:shadow-teal-300/50 hover:scale-[1.03]
+                 transition-transform transition-shadow transition-colors duration-300 overflow-hidden"
+        >
+          <img
+            src="/CasaRural1.png"
+            alt="Ruta al Mirador del Valle"
+            class="w-full h-64 object-cover"
+            loading="lazy"
+          />
+          <div class="p-6">
+            <h3 class="flex items-center gap-2 text-2xl font-semibold text-teal-700 mb-3">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2l4-4" />
+              </svg>
+              Ruta al Mirador del Valle
+            </h3>
+            <p class="text-gray-700 leading-relaxed tracking-wide">
               Caminata de 2 horas entre bosques y arroyos, con vistas espectaculares del valle. Ideal para familias.
             </p>
           </div>
-        </div>
+        </article>
 
         <!-- Actividad 2 -->
-        <div class="flex flex-col md:flex-row gap-6">
-          <img src="/CasaRural1.png" alt="Ruta en BTT" class="w-full md:w-40 h-40 object-cover rounded-xl shadow" />
-          <div>
-            <h3 class="text-xl font-semibold text-teal-700">Ruta en bicicleta de montaña</h3>
-            <p class="text-gray-600">
+        <article
+          class="bg-white rounded-xl shadow-md border-4 border-transparent
+                 hover:border-teal-400 hover:shadow-teal-300/50 hover:scale-[1.03]
+                 transition-transform transition-shadow transition-colors duration-300 overflow-hidden"
+        >
+          <img
+            src="/CasaRural1.png"
+            alt="Ruta en bicicleta de montaña"
+            class="w-full h-64 object-cover"
+            loading="lazy"
+          />
+          <div class="p-6">
+            <h3 class="flex items-center gap-2 text-2xl font-semibold text-teal-700 mb-3">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2l4-4" />
+              </svg>
+              Ruta en bicicleta de montaña
+            </h3>
+            <p class="text-gray-700 leading-relaxed tracking-wide">
               Recorrido circular de 15 km con caminos rurales y pistas forestales. Recomendado para niveles intermedios.
             </p>
           </div>
-        </div>
+        </article>
 
         <!-- Actividad 3 -->
-        <div class="flex flex-col md:flex-row gap-6">
-          <img src="/CasaRural1.png" alt="Taller Artesanía" class="w-full md:w-40 h-40 object-cover rounded-xl shadow" />
-          <div>
-            <h3 class="text-xl font-semibold text-teal-700">Taller de artesanía local</h3>
-            <p class="text-gray-600">
+        <article
+          class="bg-white rounded-xl shadow-md border-4 border-transparent
+                 hover:border-teal-400 hover:shadow-teal-300/50 hover:scale-[1.03]
+                 transition-transform transition-shadow transition-colors duration-300 overflow-hidden"
+        >
+          <img
+            src="/CasaRural1.png"
+            alt="Taller de artesanía local"
+            class="w-full h-64 object-cover"
+            loading="lazy"
+          />
+          <div class="p-6">
+            <h3 class="flex items-center gap-2 text-2xl font-semibold text-teal-700 mb-3">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2l4-4" />
+              </svg>
+              Taller de artesanía local
+            </h3>
+            <p class="text-gray-700 leading-relaxed tracking-wide">
               Aprende técnicas tradicionales de cerámica o cestería. Actividad bajo reserva previa con artesanos del pueblo.
             </p>
           </div>
-        </div>
+        </article>
 
         <!-- Actividad 4 -->
-        <div class="flex flex-col md:flex-row gap-6">
-          <img src="/CasaRural1.png" alt="Baño en el río" class="w-full md:w-40 h-40 object-cover rounded-xl shadow" />
-          <div>
-            <h3 class="text-xl font-semibold text-teal-700">Zona de baño en el río</h3>
-            <p class="text-gray-600">
+        <article
+          class="bg-white rounded-xl shadow-md border-4 border-transparent
+                 hover:border-teal-400 hover:shadow-teal-300/50 hover:scale-[1.03]
+                 transition-transform transition-shadow transition-colors duration-300 overflow-hidden"
+        >
+          <img
+            src="/CasaRural1.png"
+            alt="Zona de baño en el río"
+            class="w-full h-64 object-cover"
+            loading="lazy"
+          />
+          <div class="p-6">
+            <h3 class="flex items-center gap-2 text-2xl font-semibold text-teal-700 mb-3">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-teal-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2l4-4" />
+              </svg>
+              Zona de baño en el río
+            </h3>
+            <p class="text-gray-700 leading-relaxed tracking-wide">
               Refresca tu día en el área natural habilitada para el baño, a solo 10 minutos andando desde cualquiera de las casas.
             </p>
           </div>
-        </div>
+        </article>
       </div>
     </div>
   </section>

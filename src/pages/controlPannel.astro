@@ -1,0 +1,156 @@
+---
+import BaseLayout from "@layout/BaseLayout.astro";
+---
+
+<BaseLayout>
+  <div class="mx-auto max-w-[85rem] px-4 pb-28 pt-48 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 gap-12 lg:grid-cols-3">
+      
+      <div>
+        <h2 class="text-2xl font-bold mb-4 text-slate-800">Pendientes</h2>
+        <ul id="lista-pendientes" class="space-y-2"></ul>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold mb-4 text-green-700">Aceptadas</h2>
+        <ul id="lista-aceptadas" class="space-y-2"></ul>
+      </div>
+
+      <div>
+        <h2 class="text-2xl font-bold mb-4 text-red-700">Canceladas</h2>
+        <ul id="lista-canceladas" class="space-y-2"></ul>
+      </div>
+    </div>
+
+    <div class="mt-16">
+      <h3 class="text-2xl font-bold mb-4 text-slate-800">Fechas disponibles</h3>
+      <div id="calendar" class="min-h-[400px] bg-white shadow rounded-xl p-4" />
+    </div>
+  </div>
+
+  <!-- Toast notifications -->
+  <div id="toast-container" class="fixed top-6 right-6 z-50 space-y-2"></div>
+
+  <style>
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-fade {
+      animation: fade 0.3s ease-out;
+      transition: opacity 0.5s ease-in;
+    }
+  </style>
+
+  <script type="module">
+    document.addEventListener("DOMContentLoaded", async () => {
+      const listaPendientes = document.getElementById("lista-pendientes");
+      const listaAceptadas = document.getElementById("lista-aceptadas");
+      const listaCanceladas = document.getElementById("lista-canceladas");
+
+      function formatearFecha(valor) {
+        const fecha = new Date(valor);
+        const opciones = { day: "numeric", month: "long", year: "numeric" };
+        return fecha.toLocaleDateString("es-ES", opciones);
+      }
+
+      function mostrarToast(mensaje, tipo = "success") {
+        const contenedor = document.getElementById("toast-container");
+        if (!contenedor) return;
+
+        const colores = {
+          success: "bg-green-100 text-black",
+          error: "bg-red-100 text-black",
+          info: "bg-blue-100 text-black"
+        };
+
+        const toast = document.createElement("div");
+        toast.className = `px-4 py-2 rounded shadow ${colores[tipo]} animate-fade`;
+        toast.innerText = mensaje;
+
+        contenedor.appendChild(toast);
+
+        setTimeout(() => {
+          toast.classList.add("opacity-0");
+          setTimeout(() => toast.remove(), 500);
+        }, 3000);
+      }
+
+      const cargarReservas = async () => {
+        try {
+          const res = await fetch("http://localhost:8080/booking");
+          const reservas = await res.json();
+
+          listaPendientes.innerHTML = "";
+          listaAceptadas.innerHTML = "";
+          listaCanceladas.innerHTML = "";
+
+          reservas.forEach((r) => {
+            const html = `
+              <li class="flex justify-between items-center bg-white shadow-sm rounded-lg p-3">
+                <span>
+                  <strong>${r.nombre}</strong><br/>
+                  📍 Casa: <em>${r.nombre_casa}</em><br/>
+                  📅 ${formatearFecha(r.fecha_ini)} → ${formatearFecha(r.fecha_fin)}
+                </span>
+                <div class="flex gap-2 text-xl">
+                  ${
+                    r.aceptada === null
+                      ? `<button class="text-green-600 hover:text-green-800" onclick="gestionarReserva(${r.id}, true)">✔️</button>
+                         <button class="text-red-600 hover:text-red-800" onclick="gestionarReserva(${r.id}, false)">❌</button>`
+                      : `<button class="text-gray-500 hover:text-black" onclick="gestionarReserva(${r.id}, null)">↩️</button>`
+                  }
+                </div>
+              </li>
+            `;
+
+            if (r.aceptada === null) {
+              listaPendientes.innerHTML += html;
+            } else if (r.aceptada === true) {
+              listaAceptadas.innerHTML += html;
+            } else if (r.aceptada === false) {
+              listaCanceladas.innerHTML += html;
+            }
+          });
+        } catch (err) {
+          listaPendientes.innerHTML = "<li class='text-red-600'>Error al cargar las reservas.</li>";
+        }
+      };
+
+      window.gestionarReserva = async (id, estado) => {
+        try {
+          const query = `aceptada=${estado === null ? "null" : estado}`;
+          await fetch(`http://localhost:8080/booking/${id}/aceptada?${query}`, {
+            method: "PUT"
+          });
+          await cargarReservas();
+          mostrarToast("Reserva actualizada correctamente");
+        } catch (err) {
+          mostrarToast("Error al actualizar la reserva", "error");
+        }
+      };
+
+      await cargarReservas();
+
+      const calendarEl = document.getElementById("calendar");
+      if (calendarEl) {
+        const { Calendar } = await import('https://cdn.skypack.dev/@fullcalendar/core');
+        const dayGridPlugin = await import('https://cdn.skypack.dev/@fullcalendar/daygrid');
+        const esLocale = await import('https://cdn.skypack.dev/@fullcalendar/core/locales/es');
+
+        const calendar = new Calendar(calendarEl, {
+          plugins: [dayGridPlugin.default],
+          initialView: 'dayGridMonth',
+          locale: esLocale.default,
+          events: [
+            { title: 'Reservado', start: '2025-04-15', end: '2025-04-17' },
+            { title: 'Reservado', start: '2025-04-22' },
+          ],
+        });
+
+        calendar.render();
+      }
+    });
+  </script>
+</BaseLayout>

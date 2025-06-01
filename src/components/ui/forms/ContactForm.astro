@@ -1,18 +1,17 @@
 ---
 const formStrings = {
-  name: "Name",
-  email: "Email",
-  message: "Message",
-  submit: "Submit",
+name: "Nombre",
+  email: "Correo electrónico",
+  phone: "Teléfono (opcional)",
+  message: "Mensaje",
+  submit: "Enviar",
 };
 ---
 
-<form class="p-4" aria-labelledby="form-title">
-  {/* Fieldset and legend for grouping form elements */}
-  <fieldset class="space-y-4">
-    <legend id="form-title" class="sr-only">{formStrings.submit}</legend>
 
-    {/* Name input field */}
+<form class="p-4" aria-label="Formulario de contacto">
+  <div class="space-y-4">
+    {/* Campo Nombre */}
     <div class="relative">
       <input
         type="text"
@@ -20,19 +19,18 @@ const formStrings = {
         class="peer block w-full rounded-lg border border-transparent p-4 text-sm placeholder:text-transparent autofill:pb-2 autofill:pt-6 focus:border-teal-700/80 focus:pb-2 focus:pt-6 focus:outline-hidden focus:ring-2 focus:ring-teal-700/80 not-placeholder-shown:pb-2 not-placeholder-shown:pt-6"
         placeholder={formStrings.name}
         required
-        aria-required="true"
         aria-labelledby="input-name-label"
       />
       <label
         id="input-name-label"
         for="input-name"
-        class="pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600 peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600"
+        class="pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600 peer-disabled:pointer-events-none peer-disabled:opacity-50 peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600"
       >
         {formStrings.name}
       </label>
     </div>
 
-      {/* Email input field */}
+    {/* Campo Correo electrónico */}
     <div class="relative">
       <input
         type="email"
@@ -40,84 +38,59 @@ const formStrings = {
         class="peer block w-full rounded-lg border border-transparent p-4 text-sm placeholder:text-transparent autofill:pb-2 autofill:pt-6 focus:border-teal-700/80 focus:pb-2 focus:pt-6 focus:outline-hidden focus:ring-2 focus:ring-teal-700/80 not-placeholder-shown:pb-2 not-placeholder-shown:pt-6"
         placeholder={formStrings.email}
         required
-        aria-required="true"
         aria-labelledby="input-email-label"
-        aria-invalid="false"
       />
       <label
         id="input-email-label"
         for="input-email"
-        class="pointer-events-none absolute start-0 top-0 h-full w-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600 peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600"
+        class="pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600 peer-disabled:pointer-events-none peer-disabled:opacity-50 peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600"
       >
         {formStrings.email}
       </label>
     </div>
 
-      {/* Message textarea field */}
-    <!-- <div class="relative">
+    {/* Campo Teléfono (opcional) */}
+    <div class="relative">
+      <input
+        type="tel"
+        id="input-phone"
+        class="peer block w-full rounded-lg border border-transparent p-4 text-sm placeholder:text-transparent autofill:pb-2 autofill:pt-6 focus:border-teal-700/80 focus:pb-2 focus:pt-6 focus:outline-hidden focus:ring-2 focus:ring-teal-700/80 not-placeholder-shown:pb-2 not-placeholder-shown:pt-6"
+        placeholder={formStrings.phone}
+        aria-labelledby="input-phone-label"
+      />
+      <label
+        id="input-phone-label"
+        for="input-phone"
+        class="pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600 peer-disabled:pointer-events-none peer-disabled:opacity-50 peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600"
+      >
+        {formStrings.phone}
+      </label>
+    </div>
+
+    {/* Campo Mensaje */}
+    <div class="relative">
       <textarea
         id="input-message"
         class="peer block w-full rounded-lg border border-transparent p-4 text-sm placeholder:text-transparent autofill:pb-2 autofill:pt-6 focus:border-teal-700/80 focus:pb-2 focus:pt-6 focus:outline-hidden focus:ring-2 focus:ring-teal-700/80 not-placeholder-shown:pb-2 not-placeholder-shown:pt-6"
         placeholder={formStrings.message}
         required
-        aria-required="true"
-        aria-labelledby="input-message-label"></textarea>
+        aria-labelledby="input-message-label"
+      ></textarea>
       <label
         id="input-message-label"
         for="input-message"
-        class="pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600 peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600"
+        class="pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600 peer-disabled:pointer-events-none peer-disabled:opacity-50 peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600"
       >
         {formStrings.message}
       </label>
-    </div> -->
+    </div>
+  </div>
 
-    <!-- Fecha de entrada -->
-<div class="relative">
-  <input
-    type="date"
-    id="input-entrada"
-    class="peer block w-full rounded-lg border border-transparent p-4 text-sm text-slate-600 placeholder:text-transparent autofill:pb-2 autofill:pt-6 focus:border-teal-700/80 focus:pb-2 focus:pt-6 focus:outline-hidden focus:ring-2 focus:ring-teal-700/80 not-placeholder-shown:pb-2 not-placeholder-shown:pt-6"
-    placeholder="Fecha de entrada"
-    required
-    aria-required="true"
-    aria-labelledby="input-entrada-label"
-  />
-  <label
-    id="input-entrada-label"
-    for="input-entrada"
-    class="pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600 peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600"
-  >
-    Fecha de entrada
-  </label>
-</div>
-
-<!-- Fecha de salida -->
-<div class="relative">
-  <input
-    type="date"
-    id="input-salida"
-    class="peer block w-full rounded-lg border border-transparent p-4 text-sm text-slate-600 placeholder:text-transparent autofill:pb-2 autofill:pt-6 focus:border-teal-700/80 focus:pb-2 focus:pt-6 focus:outline-hidden focus:ring-2 focus:ring-teal-700/80 not-placeholder-shown:pb-2 not-placeholder-shown:pt-6"
-    placeholder="Fecha de salida"
-    required
-    aria-required="true"
-    aria-labelledby="input-salida-label"
-  />
-  <label
-    id="input-salida-label"
-    for="input-salida"
-    class="pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600 peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600"
-  >
-    Fecha de salida
-  </label>
-</div>
-  </fieldset>
-
-      {/* Submit button */}
+  {/* Botón enviar */}
   <div class="mt-8">
     <button
       type="submit"
-      class="inline-flex items-center text-nowrap rounded-lg bg-teal-100 px-6 py-2 font-medium text-slate-700 transition-colors duration-300 hover:bg-teal-700/80 hover:text-white focus:bg-teal-700/80 focus:outline-hidden"
-      aria-label={formStrings.submit}
+      class="inline-flex items-center rounded-lg bg-teal-100 px-6 py-2 font-medium text-slate-700 transition-colors duration-300 hover:bg-teal-700/80 hover:text-white focus:bg-teal-700/80 focus:outline-hidden"
     >
       {formStrings.submit}
     </button>

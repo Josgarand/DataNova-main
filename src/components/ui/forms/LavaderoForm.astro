@@ -1,0 +1,122 @@
+---
+const formStrings = {
+  name: "Nombre",
+  email: "Email",
+  phone: "Teléfono",
+  submit: "Reservar",
+};
+---
+
+<form class="p-4" aria-labelledby="form-title" id="reserva-form">
+  <fieldset class="space-y-4">
+    <legend id="form-title" class="sr-only">{formStrings.submit}</legend>
+
+    <!-- Nombre -->
+    <div class="relative">
+      <input type="text" id="input-name" class="peer block w-full rounded-lg border border-transparent p-4 text-sm placeholder:text-transparent autofill:pb-2 autofill:pt-6 focus:border-teal-700/80 focus:pb-2 focus:pt-6 focus:outline-hidden focus:ring-2 focus:ring-teal-700/80 not-placeholder-shown:pb-2 not-placeholder-shown:pt-6"
+        placeholder={formStrings.name} required aria-required="true" aria-labelledby="input-name-label" />
+      <label id="input-name-label" for="input-name"
+        class="pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600 peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600">
+        {formStrings.name}
+      </label>
+    </div>
+
+    <!-- Email -->
+    <div class="relative">
+      <input type="email" id="input-email" class="peer block w-full rounded-lg border border-transparent p-4 text-sm placeholder:text-transparent autofill:pb-2 autofill:pt-6 focus:border-teal-700/80 focus:pb-2 focus:pt-6 focus:outline-hidden focus:ring-2 focus:ring-teal-700/80 not-placeholder-shown:pb-2 not-placeholder-shown:pt-6"
+        placeholder={formStrings.email} required aria-required="true" aria-labelledby="input-email-label" />
+      <label id="input-email-label" for="input-email"
+        class="pointer-events-none absolute start-0 top-0 h-full w-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600 peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600">
+        {formStrings.email}
+      </label>
+    </div>
+
+    <!-- Teléfono -->
+    <div class="relative">
+      <input type="tel" id="input-telefono" class="peer block w-full rounded-lg border border-transparent p-4 text-sm placeholder:text-transparent autofill:pb-2 autofill:pt-6 focus:border-teal-700/80 focus:pb-2 focus:pt-6 focus:outline-hidden focus:ring-2 focus:ring-teal-700/80 not-placeholder-shown:pb-2 not-placeholder-shown:pt-6"
+        placeholder={formStrings.phone} required aria-required="true" aria-labelledby="input-telefono-label" />
+      <label id="input-telefono-label" for="input-telefono"
+        class="pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600 peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600">
+        {formStrings.phone}
+      </label>
+    </div>
+
+    <!-- Fecha de entrada -->
+    <div class="relative">
+      <input type="date" id="input-entrada" class="peer block w-full rounded-lg border border-transparent p-4 text-sm text-slate-600 placeholder:text-transparent autofill:pb-2 autofill:pt-6 focus:border-teal-700/80 focus:pb-2 focus:pt-6 focus:outline-hidden focus:ring-2 focus:ring-teal-700/80 not-placeholder-shown:pb-2 not-placeholder-shown:pt-6"
+        placeholder="Fecha de entrada" required aria-required="true" aria-labelledby="input-entrada-label" />
+      <label id="input-entrada-label" for="input-entrada"
+        class="pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600 peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600">
+        Fecha de entrada
+      </label>
+    </div>
+
+    <!-- Fecha de salida -->
+    <div class="relative">
+      <input type="date" id="input-salida" class="peer block w-full rounded-lg border border-transparent p-4 text-sm text-slate-600 placeholder:text-transparent autofill:pb-2 autofill:pt-6 focus:border-teal-700/80 focus:pb-2 focus:pt-6 focus:outline-hidden focus:ring-2 focus:ring-teal-700/80 not-placeholder-shown:pb-2 not-placeholder-shown:pt-6"
+        placeholder="Fecha de salida" required aria-required="true" aria-labelledby="input-salida-label" />
+      <label id="input-salida-label" for="input-salida"
+        class="pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600 peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600">
+        Fecha de salida
+      </label>
+    </div>
+  </fieldset>
+
+  <div class="mt-5">
+    <button type="submit" class="inline-flex items-center text-nowrap rounded-lg bg-teal-100 px-6 py-2 font-medium text-slate-700 transition-colors duration-300 hover:bg-teal-700/80 hover:text-white focus:bg-teal-700/80 focus:outline-hidden"
+      aria-label={formStrings.submit}>
+      {formStrings.submit}
+    </button>
+  </div>
+</form>
+
+<script type="module">
+  document.addEventListener('astro:page-load', () => {
+    const form = document.getElementById('reserva-form');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const nombre = document.getElementById('input-name').value.trim();
+      const correo = document.getElementById('input-email').value.trim();
+      const telefono = parseInt(document.getElementById('input-telefono').value.trim(), 10);
+      const fecha_ini = document.getElementById('input-entrada').value;
+      const fecha_fin = document.getElementById('input-salida').value;
+
+      if (new Date(fecha_ini) >= new Date(fecha_fin)) {
+        alert('La fecha de salida debe ser posterior a la fecha de entrada.');
+        return;
+      }
+
+      const datos = {
+        nombre,
+        correo,
+        telefono,
+        fecha_ini,
+        fecha_fin,
+        nombre_casa: "El Lavadero",
+        aceptada: null
+      };
+
+      try {
+        const res = await fetch('http://localhost:8080/booking', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(datos)
+        });
+
+        if (res.ok) {
+          alert('Reserva enviada correctamente.');
+          form.reset();
+        } else {
+          alert('Error al enviar la reserva.');
+        }
+      } catch (error) {
+        console.error(error);
+        alert('Error de conexión al enviar la reserva.');
+      }
+    });
+  });
+</script>

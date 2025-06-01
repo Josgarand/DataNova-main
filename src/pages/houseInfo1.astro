@@ -1,125 +1,100 @@
 ---
 import BaseLayout from "@/layout/BaseLayout.astro";
-
-
-
 ---
-
-
 <BaseLayout>
-    <section class="bg-linear-to-b/oklch from-teal-200 via-transparent to-white">
-
+  <section class="bg-linear-to-b/oklch from-teal-200 via-transparent to-white">
     <div class="mx-auto max-w-[85rem] space-y-8 px-4 pb-12 pt-48 sm:px-6 lg:px-8">
+      <div class="max-w-6xl mb-15 mx-auto px-4 space-y-16">
 
-    <div class="max-w-6xl mb-15 mx-auto px-4 space-y-16">
-    
-        <!-- Casa 1 -->
+        <!-- Presentación general -->
         <div class="flex flex-col md:flex-row mb-35 gap-8 items-center">
           <div class="w-full md:w-1/2 h-64 bg-gray-200 flex items-center justify-center text-gray-500 text-lg">
             <img src="/CasaRural1.png" alt="Casa rural" class="rounded-xl shadow-lg w-full object-cover" />
-
           </div>
           <div class="w-full md:w-1/2 space-y-4">
-            <h2 class="text-2xl font-bold">El lavadero</h2>
-            <p class="font-semibold">ubicación</p>
-            <p class="text-gray-600">
-              Esta casa ofrece jardín y bonitas vistas al pinar, cuenta con tres habitaciones dobles: una con cama de matrimonio y terraza, otra con cama de matrimonio, y una con dos camas individuales.
-
-              Dispone de un amplio salón-comedor con chimenea, cocina con salida al jardín, sofá cama y dos baños completos.
-
-              Entre sus comodidades: televisión, microondas, calefacción y garaje privado.
+            <h2 class="text-3xl font-bold text-slate-800">El Lavadero</h2>
+            <p class="text-teal-600 font-semibold">Tu refugio en plena naturaleza</p>
+            <p class="text-gray-700">
+              Descubre un rincón acogedor en el corazón del pueblo, rodeado de pinares y tranquilidad. La casa El Lavadero combina el encanto rural con todas las comodidades para una estancia relajante, ya sea en pareja, en familia o con amigos.
             </p>
-            <a href = "/booking1" class="bg-slate-800 text-white px-6 py-2 rounded-md hover:bg-slate-700">
+            <a href="/booking1" class="inline-block bg-teal-700 text-white px-6 py-2 rounded-md hover:bg-teal-800 transition">
               Reservar ahora
             </a>
           </div>
         </div>
-    
-       
-<!-- Carrusel de imágenes -->
-<div class="relative mt-10 px-10">
-  <!-- Carrusel -->
-  <div class="swiper mySwiper rounded-xl overflow-hidden shadow-lg h-[400px]">
-    <div class="swiper-wrapper">
-      <div class="swiper-slide">
-        <img src="/CasaRural1.png" alt="Imagen de la casa rural" class="w-full h-full object-cover" />
-      </div>
-      <div class="swiper-slide">
-        <img src="/CasaRural1.png" alt="Imagen de la casa rural" class="w-full h-full object-cover" />
-      </div>
-      <div class="swiper-slide">
-        <img src="/CasaRural1.png" alt="Imagen de la casa rural" class="w-full h-full object-cover" />
+
+        <!-- Carrusel de imágenes -->
+        <div class="relative mt-10 px-10">
+          <div class="swiper mySwiper rounded-xl overflow-hidden shadow-lg h-[400px]">
+            <div class="swiper-wrapper">
+              <div class="swiper-slide">
+                <img src="/CasaRural1.png" alt="Imagen de la casa rural" class="w-full h-full object-cover" />
+              </div>
+              <div class="swiper-slide">
+                <img src="/CasaRural1.png" alt="Imagen de la casa rural" class="w-full h-full object-cover" />
+              </div>
+              <div class="swiper-slide">
+                <img src="/CasaRural1.png" alt="Imagen de la casa rural" class="w-full h-full object-cover" />
+              </div>
+            </div>
+          </div>
+
+          <!-- Flechas -->
+          <div class="swiper-button-prev !absolute !top-1/2 !left-1 -translate-y-1/2 
+                      !text-teal-700 !text-4xl z-10"></div>
+          <div class="swiper-button-next !absolute !top-1/2 !right-1 -translate-y-1/2 
+                      !text-teal-700 !text-4xl z-10"></div>
+          <div class="swiper-pagination mt-3 text-center !static"></div>
+        </div>
+
+        <!-- Detalles técnicos de la casa -->
+        <div class="flex flex-col md:flex-row-reverse mb-35 gap-8 items-center bg-gray-50 p-6 rounded-lg">
+          <div class="w-full md:w-1/2 h-64 bg-gray-200 flex items-center justify-center text-gray-500 text-lg">
+            <img src="/CasaRural1.png" alt="Casa rural" class="rounded-xl shadow-lg w-full object-cover" />
+          </div>
+          <div class="w-full md:w-1/2 space-y-4">
+            <h2 class="text-2xl font-bold text-slate-800">Características de la casa</h2>
+            <ul class="text-gray-700 list-disc list-inside space-y-2">
+              <li>3 habitaciones dobles:
+                <ul class="list-inside list-disc ml-5">
+                  <li>1 con cama de matrimonio y terraza</li>
+                  <li>1 con cama de matrimonio</li>
+                  <li>1 con dos camas individuales</li>
+                </ul>
+              </li>
+              <li>Salón-comedor amplio con chimenea y sofá cama</li>
+              <li>Cocina totalmente equipada con acceso al jardín</li>
+              <li>2 baños completos</li>
+              <li>Televisión, microondas y calefacción</li>
+              <li>Jardín privado y garaje</li>
+            </ul>
+          </div>
+        </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <!-- Flechas con estilo simple y color teal-200 -->
-  <div class="swiper-button-prev !absolute !top-1/2 !left-1 -translate-y-1/2 
-              !text-teal-700 !text-4xl z-10"></div>
+  <!-- Estilos y JS del carrusel -->
+  <link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+  />
 
-  <div class="swiper-button-next !absolute !top-1/2 !right-1 -translate-y-1/2 
-              !text-teal-700 !text-4xl z-10"></div>
-
-  <!-- Paginación debajo -->
-  <div class="swiper-pagination mt-3 text-center !static"></div>
-
-</div>
-
-
-
-
-
-<!-- Ruta -->
-<div class="flex flex-col md:flex-row-reverse mb-35 gap-8 items-center bg-gray-50 p-6 rounded-lg">
-  <div class="w-full md:w-1/2 h-64 bg-gray-200 flex items-center justify-center text-gray-500 text-lg">
-    <img src="/CasaRural1.png" alt="Casa rural" class="rounded-xl shadow-lg w-full object-cover" />
-
-  </div>
-  <div class="w-full md:w-1/2 space-y-4 ">
-    <h2 class="text-2xl font-bold">Descubre nuestras rutas</h2>
-    <!-- <p class="font-semibold">ubicación</p> -->
-    <p class="text-gray-600">
-Explora los alrededores con nuestras rutas pensadas para todos los niveles. Ya sea a pie, en bici o a caballo, aquí encontrarás caminos llenos de naturaleza, historia y paisajes únicos.
-Consulta en recepción o en el mapa interactivo para empezar tu aventura.    </p>
-   
-  </div>
-</div>
-    
-      </div>
-</div>
-
-
-
-</section>
-
-
-</BaseLayout>
-
-
-
-
-<!-- Estilos y JS del carrusel -->
-<link
-  rel="stylesheet"
-  href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
-/>
-
-<!-- Script usando import dinámico + astro:page-load -->
-<script type="module">
-  document.addEventListener('astro:page-load', () => {
-    import('https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs').then(({ default: Swiper }) => {
-      new Swiper('.mySwiper', {
-        loop: true,
-        pagination: {
-          el: '.swiper-pagination',
-          clickable: true
-        },
-        navigation: {
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev'
-        },
+  <script type="module">
+    document.addEventListener('astro:page-load', () => {
+      import('https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs').then(({ default: Swiper }) => {
+        new Swiper('.mySwiper', {
+          loop: true,
+          pagination: {
+            el: '.swiper-pagination',
+            clickable: true
+          },
+          navigation: {
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev'
+          },
+        });
       });
     });
-  });
-
-
+  </script>
+</BaseLayout>
