@@ -1,0 +1,310 @@
+---
+import BaseLayout from "@layout/BaseLayout.astro";
+
+---
+
+<BaseLayout>
+
+    <div id="panel" style="display: none">
+
+  <div class="mx-auto max-w-7xl px-4 pb-28 pt-20 sm:px-6 lg:px-8">
+
+
+    <!-- Festivos -->
+<div class="mt-20 mb-10">
+  <h3 class="text-2xl font-bold mb-6 text-slate-800 border-b pb-2 border-slate-200">
+    Días festivos
+  </h3>
+
+  <form id="form-festivo" class="flex gap-4 items-end mb-6">
+    <div>
+      <label for="nueva-fecha" class="block text-sm font-medium text-slate-700">Nueva fecha festiva</label>
+      <input type="date" id="nueva-fecha" name="nueva-fecha" class="border rounded px-3 py-2 text-slate-800" required />
+    </div>
+    <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-black font-semibold px-4 py-2 rounded shadow">
+      Añadir festivo
+    </button>
+  </form>
+<div class="max-h-46 overflow-y-auto rounded-lg shadow-sm p-2">
+
+  <ul id="lista-festivos" class="space-y-2" />
+</div>
+</div>
+
+<div class="max-h-170 overflow-y-auto rounded-lg shadow-sm p-2">
+
+    <div class="grid grid-cols-1 gap-12 lg:grid-cols-3">
+      
+      <!-- Pendientes -->
+      <section>
+        <h2 class="text-xl font-semibold text-yellow-600 mb-4 border-b border-yellow-100 pb-1">
+          Reservas pendientes
+        </h2>
+        <ul id="lista-pendientes" class="space-y-3" />
+      </section>
+
+      <!-- Aceptadas -->
+      <section>
+        <h2 class="text-xl font-semibold text-green-600 mb-4 border-b border-green-100 pb-1">
+          Reservas aceptadas
+        </h2>
+        <ul id="lista-aceptadas" class="space-y-3" />
+      </section>
+
+      <!-- Canceladas -->
+      <section>
+        <h2 class="text-xl font-semibold text-red-600 mb-4 border-b border-red-100 pb-1">
+          Reservas canceladas
+        </h2>
+        <ul id="lista-canceladas" class="space-y-3" />
+      </section>
+    </div>
+
+
+  </div>
+
+
+    <!-- Calendario -->
+    <div class="mt-20">
+      <h3 class="text-2xl font-bold mb-6 text-slate-800 border-b pb-2 border-slate-200">
+        Fechas reservadas
+      </h3>
+      <div id="calendar" class="min-h-[450px] bg-white shadow-lg rounded-2xl p-6 border border-slate-200" />
+    </div>
+  </div>
+
+  <!-- Toast notifications -->
+  <div id="toast-container" class="fixed top-6 right-6 z-50 space-y-2"></div>
+
+  <style>
+    @keyframes fade {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-fade {
+      animation: fade 0.3s ease-out;
+      transition: opacity 0.5s ease-in;
+    }
+  </style>
+</div>
+</BaseLayout>
+
+
+
+
+  <script type="module">
+
+
+
+
+    // controlPanel script
+document.addEventListener("DOMContentLoaded", async () => {
+  const res = await fetch("http://localhost:8080/auth/check", {
+    credentials: "include"
+  });
+
+  if (!res.ok) {
+    window.location.href = "/login";
+    return;
+  }
+
+  // Si todo bien, mostrar el panel
+  document.getElementById("panel").style.display = "block";
+});
+  </script>
+
+<script type="module">
+  document.addEventListener("astro:page-load", iniciarPagina);
+document.addEventListener("astro:after-swap", iniciarPagina);
+async function iniciarPagina() {
+    const listaPendientes = document.getElementById("lista-pendientes");
+    const listaAceptadas = document.getElementById("lista-aceptadas");
+    const listaCanceladas = document.getElementById("lista-canceladas");
+    const listaFestivos = document.getElementById("lista-festivos");
+    const formFestivo = document.getElementById("form-festivo");
+    let calendar; // accesible en todo el script
+
+    function formatearFecha(valor) {
+      const fecha = new Date(valor);
+      const opciones = { day: "numeric", month: "long", year: "numeric" };
+      return fecha.toLocaleDateString("es-ES", opciones);
+    }
+
+    function mostrarToast(mensaje, tipo = "success") {
+      const contenedor = document.getElementById("toast-container");
+      if (!contenedor) return;
+
+      const colores = {
+        success: "bg-green-100 text-green-800",
+        error: "bg-red-100 text-red-800",
+        info: "bg-blue-100 text-blue-800"
+      };
+
+      const toast = document.createElement("div");
+      toast.className = `px-4 py-2 rounded shadow ${colores[tipo]} animate-fade`;
+      toast.innerText = mensaje;
+
+      contenedor.appendChild(toast);
+
+      setTimeout(() => {
+        toast.classList.add("opacity-0");
+        setTimeout(() => toast.remove(), 500);
+      }, 3000);
+    }
+
+    const crearReservaHTML = (r) => {
+      return `
+        <li class="bg-white border border-slate-200 rounded-xl shadow-sm p-4 flex justify-between items-center">
+          <div class="text-sm text-slate-700">
+            <p class="font-medium text-base">${r.nombre}</p>
+            <p class="text-slate-500">Casa: ${r.nombre_casa}</p>
+            <p class="text-slate-500">Del ${formatearFecha(r.fecha_ini)} al ${formatearFecha(r.fecha_fin)}</p>
+          </div>
+          <div class="flex gap-2 text-lg">
+            ${
+              r.aceptada === null
+                ? `<button class="text-green-600 hover:text-green-800 transition" onclick="gestionarReserva(${r.id}, true)" title="Aceptar reserva">✔</button>
+                   <button class="text-red-600 hover:text-red-800 transition" onclick="gestionarReserva(${r.id}, false)" title="Rechazar reserva">✖</button>`
+                : `<button class="text-gray-400 hover:text-black transition" onclick="gestionarReserva(${r.id}, null)" title="Revertir estado">↩</button>`
+            }
+          </div>
+        </li>
+      `;
+    };
+
+    const cargarReservas = async () => {
+      try {
+        const res = await fetch("http://localhost:8080/booking");
+        const reservas = await res.json();
+
+        listaPendientes.innerHTML = "";
+        listaAceptadas.innerHTML = "";
+        listaCanceladas.innerHTML = "";
+
+        reservas.forEach((r) => {
+          const html = crearReservaHTML(r);
+          if (r.aceptada === null) {
+            listaPendientes.innerHTML += html;
+          } else if (r.aceptada === true) {
+            listaAceptadas.innerHTML += html;
+          } else if (r.aceptada === false) {
+            listaCanceladas.innerHTML += html;
+          }
+        });
+      } catch (err) {
+        listaPendientes.innerHTML = "<li class='text-red-600'>Error al cargar las reservas.</li>";
+      }
+    };
+
+    window.gestionarReserva = async (id, estado) => {
+      try {
+        const query = `aceptada=${estado === null ? "null" : estado}`;
+        await fetch(`http://localhost:8080/booking/${id}/aceptada?${query}`, {
+          method: "PUT"
+        });
+        await cargarReservas();
+        mostrarToast("Reserva actualizada correctamente");
+      } catch (err) {
+        mostrarToast("Error al actualizar la reserva", "error");
+      }
+    };
+
+    const calendarEl = document.getElementById("calendar");
+    if (calendarEl) {
+      const { Calendar } = await import('https://cdn.skypack.dev/@fullcalendar/core');
+      const dayGridPlugin = await import('https://cdn.skypack.dev/@fullcalendar/daygrid');
+      const esLocale = await import('https://cdn.skypack.dev/@fullcalendar/core/locales/es');
+
+      calendar = new Calendar(calendarEl, {
+        plugins: [dayGridPlugin.default],
+        initialView: 'dayGridMonth',
+        locale: esLocale.default,
+        events: [],
+      });
+
+      calendar.render();
+    }
+
+    const cargarFestivos = async () => {
+      try {
+        const res = await fetch("http://localhost:8080/vacationDays");
+        const festivos = await res.json();
+
+        listaFestivos.innerHTML = "";
+        festivos.forEach(f => {
+          const fecha = formatearFecha(f.fecha);
+          const li = document.createElement("li");
+          li.className = "bg-slate-100 px-4 py-2 rounded flex justify-between items-center";
+          li.innerHTML = `
+            <span>${fecha}</span>
+            <button 
+              class="text-red-600 hover:text-red-800 transition eliminar-festivo" 
+              title="Eliminar" 
+              data-id="${f.id}"
+            >✖</button>
+          `;
+          listaFestivos.appendChild(li);
+        });
+
+        // Escuchar botones eliminar
+        document.querySelectorAll(".eliminar-festivo").forEach(btn => {
+          btn.addEventListener("click", async () => {
+            const id = btn.dataset.id;
+            try {
+              await fetch(`http://localhost:8080/vacationDays/${id}`, {
+                method: "DELETE"
+              });
+              mostrarToast("Festivo eliminado");
+              await cargarFestivos();
+            } catch (err) {
+              mostrarToast("Error al eliminar festivo", "error");
+            }
+          });
+        });
+
+        if (calendar) {
+          calendar.removeAllEvents();
+          festivos.forEach(f => {
+            calendar.addEvent({ title: 'Festivo', start: f.fecha, allDay: true, color: '#facc15' });
+          });
+        }
+
+      } catch (err) {
+        mostrarToast("Error al cargar los festivos", "error");
+      }
+    };
+
+    formFestivo.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const fecha = document.getElementById("nueva-fecha").value;
+      if (!fecha) return;
+
+      try {
+        await fetch("http://localhost:8080/vacationDays", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ fecha })
+        });
+        mostrarToast("Festivo añadido");
+        await cargarFestivos();
+        formFestivo.reset();
+      } catch (err) {
+        mostrarToast("Error al añadir festivo", "error");
+      }
+    });
+
+    await cargarReservas();
+    await cargarFestivos();
+
+  };
+
+  // Listener para detectar navegación con botones atrás/adelante y recargar datos
+  window.addEventListener("pageshow", async (event) => {
+    if (event.persisted) {
+      await cargarReservas();
+      await cargarFestivos();
+    }
+  });
+</script>
+

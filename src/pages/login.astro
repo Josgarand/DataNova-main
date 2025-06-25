@@ -1,0 +1,67 @@
+---
+import AuthLayout from "@/layout/AuthLayout.astro";
+const title = "Iniciar sesión";
+---
+
+<AuthLayout>
+  <div class="min-h-screen flex items-center justify-center bg-white px-4 py-12">
+    <div class="w-full max-w-md bg-teal-100 p-8 rounded-2xl shadow-md border border-teal-200">
+      <h1 class="text-3xl font-semibold text-slate-800 mb-6 text-center">{title}</h1>
+
+      <form id="loginForm" class="space-y-4">
+        <div>
+          <label for="username" class="block text-sm font-medium text-slate-700">Usuario</label>
+          <input type="text" id="username" name="username" required
+                 class="mt-1 w-full px-4 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500" />
+        </div>
+
+        <div>
+          <label for="password" class="block text-sm font-medium text-slate-700">Contraseña</label>
+          <input type="password" id="password" name="password" required
+                 class="mt-1 w-full px-4 py-2 rounded-lg border border-slate-300 focus:outline-none focus:ring-2 focus:ring-teal-500" />
+        </div>
+
+        <button type="submit"
+                class="w-full bg-teal-500 hover:bg-teal-600 text-white font-semibold py-2 px-4 rounded-lg transition">
+          Iniciar sesión
+        </button>
+      </form>
+    </div>
+  </div>  
+
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("loginForm");
+    const usernameInput = document.getElementById("username") as HTMLInputElement;
+    const passwordInput = document.getElementById("password") as HTMLInputElement;
+
+    form?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const formData = new URLSearchParams();
+      formData.append("username", usernameInput.value);
+      formData.append("password", passwordInput.value);
+
+      try {
+        const res = await fetch("http://localhost:8080/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded"
+          },
+          body: formData,
+          credentials: "include"
+        });
+
+        if (res.ok) {
+          window.location.href = "/controlPanel";
+        } else {
+          alert("Credenciales incorrectas");
+        }
+      } catch (error) {
+        console.error("Error al hacer login:", error);
+        alert("Error de red. Intenta de nuevo.");
+      }
+    });
+  });
+</script>
+</AuthLayout>

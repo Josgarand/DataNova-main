@@ -1,14 +1,13 @@
 ---
+import CasaRicardo2Form from "@/components/ui/forms/CasaRicardo2Form.astro";
 import BaseLayout from "@layout/BaseLayout.astro";
 import type { WithContext, Thing } from "schema-dts";
-import LavaderoForm from "@/components/ui/forms/LavaderoForm.astro";
-import CasaRicardo1Form from "@/components/ui/forms/CasaRicardo1Form.astro";
 
 // Título y metadatos
-const title = "Reservar Casa Ricardo Apartamento 2";
+const title = "Reservar Casa Ricardo apartamento 2";
 const seo = {
-  title: "Reservar Casa Ricardo Apartamento 2",
-  description: "Consulta la disponibilidad y reserva Casa Ricardo Apartamento 2.",
+  title: "Reservar Casa Ricardo apartamento 2",
+  description: "Consulta la disponibilidad y reserva Casa Ricardo apartamento 2.",
 };
 
 const schema: WithContext<Thing> = {
@@ -17,8 +16,8 @@ const schema: WithContext<Thing> = {
   inLanguage: "es-ES",
   "@id": Astro.url.href,
   url: Astro.url.href,
-  name: "Reservar Casa Ricardo Apartamento 2",
-  description: "Consulta la disponibilidad y reserva Casa Ricardo Apartamento 2.",
+  name: "Reservar Casa Ricardo apartamento 2",
+  description: "Consulta la disponibilidad y reserva Casa Ricardo apartamento 2.",
   isPartOf: {
     "@type": "WebSite",
     url: `${Astro.site}`,
@@ -36,18 +35,32 @@ const schema: WithContext<Thing> = {
           {title}
         </h2>
 
-        <div class="mb-10 rounded-xl h-[430px] bg-teal-400 pb-10 md:mb-0 md:pb-0">
-          <CasaRicardo1Form />
+        <div class="mb-10 rounded-xl h-[460px] bg-teal-400 pb-10 md:mb-0 md:pb-0">
+          <CasaRicardo2Form />
         </div>
       </div>
 
       <!-- CALENDARIO -->
       <div id="calendar" data-casa="Casa Ricardo apartamento 2" class="min-h-[400px]"/>
     </div>
+
+
+
+    <section class="mt-10 mb-6 p-4 rounded-lg bg-teal-200 border border-teal-200 text-slate-800">
+  <h2 class="text-lg font-semibold mb-2">Precios por noche</h2>
+  <ul class="list-disc list-inside space-y-1 text-sm">
+    <li><strong>Entre semana (lunes a jueves):</strong> 80 € por noche</li>
+    <li><strong>Fin de semana (viernes a domingo):</strong> 120 € por noche</li>
+    <li><strong>Festivos:</strong> 150 € por noche</li>
+  </ul>
+  <p class="mt-2 text-xs text-slate-600">* El precio total se calculará al confirmar la reserva.</p>
+</section>
+
+
   </div>
 
   <script type="module">
-        document.addEventListener('astro:page-load', setupCalendar);
+    document.addEventListener('astro:page-load', setupCalendar);
     document.addEventListener('astro:after-swap', setupCalendar);
 
     async function setupCalendar() {
@@ -62,7 +75,7 @@ const schema: WithContext<Thing> = {
       // Sumar un día para que FullCalendar muestre eventos como barra
       function addOneDay(fechaStr) {
         const fecha = new Date(fechaStr);
-        fecha.setDate(fecha.getDate() + 1);
+        fecha.setDate(fecha.getDate() + 2);
         return fecha.toISOString().split('T')[0];
       }
 
@@ -100,6 +113,5 @@ const schema: WithContext<Thing> = {
         console.error("Error cargando eventos:", err);
       }
     }
-
   </script>
 </BaseLayout>

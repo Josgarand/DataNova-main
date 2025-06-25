@@ -35,69 +35,103 @@ const schema: WithContext<Thing> = {
           {title}
         </h2>
 
-        <div class="mb-10 rounded-xl h-[430px] bg-teal-400 pb-10 md:mb-0 md:pb-0">
+        <div class="mb-10 rounded-xl h-[460px] bg-teal-400 pb-10 md:mb-0 md:pb-0">
           <LavaderoForm />
         </div>
       </div>
 
-      <!-- CALENDARIO -->
-      <div id="calendar" data-casa="El Lavadero" class="min-h-[400px]"/>
-    </div>
+
+     <!-- CALENDARIO -->
+<div class="relative min-h-[400px]">
+  <!-- Loader -->
+  <div id="calendar-loader" class="absolute inset-0 flex items-center justify-center bg-white z-10">
+    <svg class="animate-spin h-8 w-8 text-teal-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+      <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+      <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+    </svg>
   </div>
 
-  <script type="module">
-    document.addEventListener('astro:page-load', setupCalendar);
-    document.addEventListener('astro:after-swap', setupCalendar);
+  <!-- Calendario real -->
+<div id="calendar" data-casa="El Lavadero" class="min-h-[600px]" />
+</div>
+    
+    
+    
+    </div>
 
-    async function setupCalendar() {
-      const calendarEl = document.getElementById('calendar');
-      if (!calendarEl) return;
 
-      // Limpiar contenido anterior del calendario
-      calendarEl.innerHTML = "";
 
-      const nombreCasa = encodeURIComponent(calendarEl.dataset.casa || "El Lavadero");
+    <section class="mt-10 mb-6 p-4 rounded-lg bg-teal-200 border border-teal-200 text-slate-800">
+  <h2 class="text-lg font-semibold mb-2">Precios por noche</h2>
+  <ul class="list-disc list-inside space-y-1 text-sm">
+    <li><strong>Entre semana (lunes a jueves):</strong> 80 € por noche</li>
+    <li><strong>Fin de semana (viernes a domingo):</strong> 120 € por noche</li>
+    <li><strong>Festivos:</strong> 150 € por noche</li>
+  </ul>
+  <p class="mt-2 text-xs text-slate-600">* El precio total se calculará al confirmar la reserva.</p>
+</section>
 
-      // Sumar un día para que FullCalendar muestre eventos como barra
-      function addOneDay(fechaStr) {
-        const fecha = new Date(fechaStr);
-        fecha.setDate(fecha.getDate() + 2);
-        return fecha.toISOString().split('T')[0];
-      }
 
-      try {
-        const response = await fetch(`http://localhost:8080/booking/aceptadas/${nombreCasa}`);
-        const data = await response.json();
+  </div>
+<script type="module">
+  document.addEventListener('astro:page-load', setupCalendar);
+  document.addEventListener('astro:after-swap', setupCalendar);
 
-        const eventos = data.map((reserva) => ({
-          title: "Reservado",
-          start: reserva.fecha_ini,
-          end: addOneDay(reserva.fecha_fin),
-          display: 'block',
-        }));
+  async function setupCalendar() {
+    const calendarEl = document.getElementById('calendar');
+    const loader = document.getElementById('calendar-loader');
+    if (!calendarEl) return;
 
-        const { Calendar } = await import('https://cdn.skypack.dev/@fullcalendar/core');
-        const dayGridPlugin = await import('https://cdn.skypack.dev/@fullcalendar/daygrid');
-        const esLocale = await import('https://cdn.skypack.dev/@fullcalendar/core/locales/es');
+    // Mostrar loader
+    if (loader) loader.style.display = 'flex';
 
-        const calendar = new Calendar(calendarEl, {
-          plugins: [dayGridPlugin.default],
-          initialView: 'dayGridMonth',
-          locale: esLocale.default,
-          events: eventos,
-          eventContent: function(arg) {
-            if (arg.isStart) {
-              return { html: `<div>${arg.event.title}</div>` };
-            } else {
-              return { html: `<div>&nbsp;</div>` };
-            }
-          },
-        });
+    // Limpiar contenido anterior del calendario
+    calendarEl.innerHTML = "";
 
-        calendar.render();
-      } catch (err) {
-        console.error("Error cargando eventos:", err);
-      }
+    const nombreCasa = encodeURIComponent(calendarEl.dataset.casa || "El Lavadero");
+
+    function addOneDay(fechaStr) {
+      const fecha = new Date(fechaStr);
+      fecha.setDate(fecha.getDate() + 2);
+      return fecha.toISOString().split('T')[0];
     }
-  </script>
+
+    try {
+      const response = await fetch(`http://localhost:8080/booking/aceptadas/${nombreCasa}`);
+      const data = await response.json();
+
+      const eventos = data.map((reserva) => ({
+        title: "Reservado",
+        start: reserva.fecha_ini,
+        end: addOneDay(reserva.fecha_fin),
+        display: 'block',
+      }));
+
+      const { Calendar } = await import('https://cdn.skypack.dev/@fullcalendar/core');
+      const dayGridPlugin = await import('https://cdn.skypack.dev/@fullcalendar/daygrid');
+      const esLocale = await import('https://cdn.skypack.dev/@fullcalendar/core/locales/es');
+
+      const calendar = new Calendar(calendarEl, {
+        plugins: [dayGridPlugin.default],
+        initialView: 'dayGridMonth',
+        locale: esLocale.default,
+        events: eventos,
+        eventContent: function(arg) {
+          if (arg.isStart) {
+            return { html: `<div>${arg.event.title}</div>` };
+          } else {
+            return { html: `<div>&nbsp;</div>` };
+          }
+        },
+      });
+
+      calendar.render();
+    } catch (err) {
+      console.error("Error cargando eventos:", err);
+    } finally {
+      // Ocultar loader siempre al final
+      if (loader) loader.style.display = 'none';
+    }
+  }
+</script>
 </BaseLayout>

@@ -1,98 +1,167 @@
----
-const formStrings = {
-name: "Nombre *",
-  email: "Correo electrónico *",
-  phone: "Teléfono",
-  message: "Mensaje *",
-  submit: "Enviar",
-};
----
-
-
-<form class="p-4" aria-label="Formulario de contacto">
+<form id="contact-form" class="p-4" aria-label="Formulario de contacto">
   <div class="space-y-4">
-    {/* Campo Nombre */}
+    <!-- Nombre -->
+
     <div class="relative">
       <input
         type="text"
-        id="input-name"
-        class="peer block w-full rounded-lg border border-transparent p-4 text-sm placeholder:text-transparent autofill:pb-2 autofill:pt-6 focus:border-teal-700/80 focus:pb-2 focus:pt-6 focus:outline-hidden focus:ring-2 focus:ring-teal-700/80 not-placeholder-shown:pb-2 not-placeholder-shown:pt-6"
-        placeholder={formStrings.name}
+        id="nombre"
+        name="nombre"
+        class="peer block w-full rounded-lg border border-transparent p-4 text-sm not-placeholder-shown:pt-6 not-placeholder-shown:pb-2 placeholder:text-transparent autofill:pt-6 autofill:pb-2 focus:border-teal-700/80 focus:pt-6 focus:pb-2 focus:ring-2 focus:ring-teal-700/80 focus:outline-hidden"
+        placeholder="Nombre *"
         required
-        aria-labelledby="input-name-label"
+        aria-labelledby="label-nombre"
       />
+
       <label
-        id="input-name-label"
-        for="input-name"
-        class="pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600 peer-disabled:pointer-events-none peer-disabled:opacity-50 peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600"
+        id="label-nombre"
+        for="nombre"
+        class="pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600 peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600 peer-disabled:pointer-events-none peer-disabled:opacity-50"
       >
-        {formStrings.name}
+        Nombre *
       </label>
     </div>
 
-    {/* Campo Correo electrónico */}
+    <!-- Correo electrónico -->
+
     <div class="relative">
       <input
         type="email"
-        id="input-email"
-        class="peer block w-full rounded-lg border border-transparent p-4 text-sm placeholder:text-transparent autofill:pb-2 autofill:pt-6 focus:border-teal-700/80 focus:pb-2 focus:pt-6 focus:outline-hidden focus:ring-2 focus:ring-teal-700/80 not-placeholder-shown:pb-2 not-placeholder-shown:pt-6"
-        placeholder={formStrings.email}
+        id="correo"
+        name="correo"
+        class="peer block w-full rounded-lg border border-transparent p-4 text-sm not-placeholder-shown:pt-6 not-placeholder-shown:pb-2 placeholder:text-transparent autofill:pt-6 autofill:pb-2 focus:border-teal-700/80 focus:pt-6 focus:pb-2 focus:ring-2 focus:ring-teal-700/80 focus:outline-hidden"
+        placeholder="Correo electrónico *"
         required
-        aria-labelledby="input-email-label"
+        aria-labelledby="label-correo"
       />
+
       <label
-        id="input-email-label"
-        for="input-email"
-        class="pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600 peer-disabled:pointer-events-none peer-disabled:opacity-50 peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600"
+        id="label-correo"
+        for="correo"
+        class="pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600 peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600 peer-disabled:pointer-events-none peer-disabled:opacity-50"
       >
-        {formStrings.email}
+        Correo electrónico *
       </label>
     </div>
 
-    {/* Campo Teléfono (opcional) */}
+    <!-- Teléfono -->
+
     <div class="relative">
       <input
         type="tel"
-        id="input-phone"
-        class="peer block w-full rounded-lg border border-transparent p-4 text-sm placeholder:text-transparent autofill:pb-2 autofill:pt-6 focus:border-teal-700/80 focus:pb-2 focus:pt-6 focus:outline-hidden focus:ring-2 focus:ring-teal-700/80 not-placeholder-shown:pb-2 not-placeholder-shown:pt-6"
-        placeholder={formStrings.phone}
-        aria-labelledby="input-phone-label"
+        id="telefono"
+        name="telefono"
+        class="peer block w-full rounded-lg border border-transparent p-4 text-sm not-placeholder-shown:pt-6 not-placeholder-shown:pb-2 placeholder:text-transparent autofill:pt-6 autofill:pb-2 focus:border-teal-700/80 focus:pt-6 focus:pb-2 focus:ring-2 focus:ring-teal-700/80 focus:outline-hidden"
+        placeholder="Teléfono"
+        aria-labelledby="label-telefono"
       />
+
       <label
-        id="input-phone-label"
-        for="input-phone"
-        class="pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600 peer-disabled:pointer-events-none peer-disabled:opacity-50 peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600"
+        id="label-telefono"
+        for="telefono"
+        class="pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600 peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600 peer-disabled:pointer-events-none peer-disabled:opacity-50"
       >
-        {formStrings.phone}
+        Teléfono
       </label>
     </div>
 
-    {/* Campo Mensaje */}
+    <!-- Mensaje -->
+
     <div class="relative">
       <textarea
-        id="input-message"
-        class="peer block w-full rounded-lg border border-transparent p-4 text-sm placeholder:text-transparent autofill:pb-2 autofill:pt-6 focus:border-teal-700/80 focus:pb-2 focus:pt-6 focus:outline-hidden focus:ring-2 focus:ring-teal-700/80 not-placeholder-shown:pb-2 not-placeholder-shown:pt-6"
-        placeholder={formStrings.message}
+        id="mensaje"
+        name="mensaje"
+        class="peer block w-full rounded-lg border border-transparent p-4 text-sm not-placeholder-shown:pt-6 not-placeholder-shown:pb-2 placeholder:text-transparent autofill:pt-6 autofill:pb-2 focus:border-teal-700/80 focus:pt-6 focus:pb-2 focus:ring-2 focus:ring-teal-700/80 focus:outline-hidden"
+        placeholder="Mensaje *"
         required
-        aria-labelledby="input-message-label"
-      ></textarea>
+        aria-labelledby="label-mensaje"></textarea>
+
       <label
-        id="input-message-label"
-        for="input-message"
-        class="pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600 peer-disabled:pointer-events-none peer-disabled:opacity-50 peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600"
+        id="label-mensaje"
+        for="mensaje"
+        class="pointer-events-none absolute start-0 top-0 h-full truncate border border-transparent p-4 text-slate-600 transition duration-100 ease-in-out peer-not-placeholder-shown:-translate-y-1.5 peer-not-placeholder-shown:text-xs peer-not-placeholder-shown:text-slate-600 peer-focus:-translate-y-1.5 peer-focus:text-xs peer-focus:text-slate-600 peer-disabled:pointer-events-none peer-disabled:opacity-50"
       >
-        {formStrings.message}
+        Mensaje *
       </label>
     </div>
   </div>
 
-  {/* Botón enviar */}
   <div class="mt-8">
     <button
       type="submit"
       class="inline-flex items-center rounded-lg bg-teal-100 px-6 py-2 font-medium text-slate-700 transition-colors duration-300 hover:bg-teal-700/80 hover:text-white focus:bg-teal-700/80 focus:outline-hidden"
     >
-      {formStrings.submit}
+      Enviar
     </button>
   </div>
+
+  <p id="form-status" class="mt-4 text-center text-sm text-gray-700"></p>
 </form>
+
+<script>
+  // Aquí indicamos que 'form' es un HTMLFormElement (no un genérico HTMLElement)
+
+  const form = document.getElementById(
+    "contact-form"
+  ) as HTMLFormElement | null;
+
+  const status = document.getElementById("form-status");
+
+  if (!form || !status) {
+    console.error("El formulario o el estado no se encontraron en el DOM.");
+  } else {
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      status.textContent = "Enviando..."; // Ahora accedemos a los campos como inputs dentro del form usando form.elements
+
+      const data = {
+        nombre: (
+          form.elements.namedItem("nombre") as HTMLInputElement
+        ).value.trim(),
+
+        correo: (
+          form.elements.namedItem("correo") as HTMLInputElement
+        ).value.trim(),
+
+        telefono: (
+          form.elements.namedItem("telefono") as HTMLInputElement
+        ).value.trim(),
+
+        mensaje: (
+          form.elements.namedItem("mensaje") as HTMLTextAreaElement
+        ).value.trim(),
+      };
+
+      if (!data.nombre || !data.correo || !data.mensaje) {
+        status.textContent =
+          "Por favor, rellena todos los campos obligatorios.";
+
+        return;
+      }
+
+      try {
+        const response = await fetch("http://localhost:8080/contacto", {
+          method: "POST",
+
+          headers: {
+            "Content-Type": "application/json",
+          },
+
+          body: JSON.stringify(data),
+        });
+
+        if (response.ok) {
+          status.textContent = "Mensaje enviado correctamente.";
+
+          form.reset(); // ahora sí es válido porque form es HTMLFormElement
+        } else {
+          status.textContent =
+            "Error al enviar el mensaje. Inténtalo más tarde.";
+        }
+      } catch (error) {
+        status.textContent = "Error en la conexión. Inténtalo más tarde.";
+      }
+    });
+  }
+</script>

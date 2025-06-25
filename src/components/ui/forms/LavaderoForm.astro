@@ -1,3 +1,4 @@
+
 ---
 const formStrings = {
   name: "Nombre *",
@@ -5,7 +6,12 @@ const formStrings = {
   phone: "Teléfono *",
   submit: "Solicitar reserva",
 };
+
+
+
 ---
+
+
 
 <form class="p-4" aria-labelledby="form-title" id="reserva-form">
   <fieldset class="space-y-4">
@@ -62,6 +68,15 @@ const formStrings = {
     </div>
   </fieldset>
 
+
+  <!-- <div id="precio-estimado" class="mt-4 text-slate-800 font-medium">
+    Precio estimado: <span id="precio-total">--</span> €
+  </div> -->
+
+  <div id="precio-estimado" class="mt-4 text-slate-800 font-medium">
+  Precio estimado: <span id="precio-total">0</span> €
+</div>
+
   <div class="mt-5">
     <button type="submit" class="inline-flex items-center text-nowrap rounded-lg bg-teal-100 px-6 py-2 font-medium text-slate-700 transition-colors duration-300 hover:bg-teal-700/80 hover:text-white focus:bg-teal-700/80 focus:outline-hidden"
       aria-label={formStrings.submit}>
@@ -70,10 +85,102 @@ const formStrings = {
   </div>
 </form>
 
-<script type="module">
-  document.addEventListener('astro:page-load', () => {
-    const form = document.getElementById('reserva-form');
+<!-- Mensaje de confirmación -->
+<div id="mensaje-confirmacion"
+  class="fixed inset-0 z-50 hidden flex items-center justify-center bg-black/50 backdrop-blur-sm">
+  
+  <!-- Tarjeta con fondo sólido -->
+<div class="w-full max-w-md rounded-xl bg-white p-6 text-slate-800 shadow-2xl ring-1 ring-slate-300">
+    <h2 class="text-lg font-semibold">¡Solicitud enviada correctamente!</h2>
+    <p class="mt-1">En breve recibirás un correo con la confirmación de la reserva.</p>
+    <p class="mt-2 font-medium">Precio estimado: <span id="precio-confirmacion">0</span> €</p>
+    <div class="mt-4 text-right">
+      <button id="cerrar-mensaje"
+        class="rounded bg-teal-700 px-4 py-2 text-white hover:bg-teal-800 focus:outline-none">
+        Cerrar
+      </button>
+    </div>
+  </div>
+</div>
 
+<script type="module">
+  document.addEventListener('astro:page-load', async () => {
+    const form = document.getElementById('reserva-form');
+    const mensaje = document.getElementById('mensaje-confirmacion');
+    const precioConfirmacion = document.getElementById('precio-confirmacion');
+    const PRECIO_SEMANA = 80;
+    const PRECIO_FINDE = 120;
+    const PRECIO_FESTIVO = 150;
+    const festivoSet = new Set();
+
+    // 1. Cargar festivos desde la API local de Spring Boot
+async function cargarFestivos() {
+  try {
+
+    const res = await fetch(`http://localhost:8080/vacationDays`);
+    const festivos = await res.json();
+    
+    festivos.forEach(f => {
+      const fechaFormateada = new Date(f.fecha).toLocaleDateString('sv-SE');
+      festivoSet.add(fechaFormateada);
+    });
+
+  } catch (err) {
+    console.error("Error al cargar festivos desde backend:", err);
+  }
+}
+
+    await cargarFestivos();
+
+    const precioSpan = document.getElementById('precio-total');
+    const inputEntrada = document.getElementById('input-entrada');
+    const inputSalida = document.getElementById('input-salida');
+
+    function actualizarPrecio() {
+      const entrada = inputEntrada.value;
+      const salida = inputSalida.value;
+
+      if (!entrada || !salida || new Date(entrada) >= new Date(salida)) {
+        precioSpan.textContent = '0';
+        return;
+      }
+
+      const precio = calcularPrecio(entrada, salida);
+      precioSpan.textContent = precio.toFixed(2);
+    }
+
+    inputEntrada.addEventListener('change', actualizarPrecio);
+    inputSalida.addEventListener('change', actualizarPrecio);
+
+    // 2. Calcular precio según tipo de día
+  function calcularPrecio(entrada, salida) {
+  const fechaIni = new Date(entrada);
+  const fechaFin = new Date(salida);
+  let total = 0;
+
+  console.log("Festivos disponibles en el Set:", Array.from(festivoSet));
+
+  for (let d = new Date(fechaIni); d < fechaFin; d.setDate(d.getDate() + 1)) {
+    const fechaStr = d.toLocaleDateString('sv-SE'); // YYYY-MM-DD
+    const diaSemana = d.getDay(); // 0 domingo - 6 sábado
+
+    if (festivoSet.has(fechaStr)) {
+      total += PRECIO_FESTIVO;
+      console.log(`${fechaStr} es festivo → +${PRECIO_FESTIVO}`);
+    } else if (diaSemana === 0 || diaSemana === 5 || diaSemana === 6) {
+      total += PRECIO_FINDE;
+      console.log(`${fechaStr} es finde (día ${diaSemana}) → +${PRECIO_FINDE}`);
+    } else {
+      total += PRECIO_SEMANA;
+      console.log(`${fechaStr} es entre semana → +${PRECIO_SEMANA}`);
+    }
+  }
+
+  console.log("Precio total calculado:", total);
+  return total;
+}
+
+    // 3. Enviar el formulario
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
@@ -84,9 +191,11 @@ const formStrings = {
       const fecha_fin = document.getElementById('input-salida').value;
 
       if (new Date(fecha_ini) >= new Date(fecha_fin)) {
-        alert('La fecha de salida debe ser posterior a la fecha de entrada.');
+        alert('La fecha de salida debe ser posterior a la de entrada.');
         return;
       }
+
+      const precioTotal = calcularPrecio(fecha_ini, fecha_fin);
 
       const datos = {
         nombre,
@@ -108,11 +217,27 @@ const formStrings = {
         });
 
         if (res.ok) {
-          alert('Reserva enviada correctamente.');
           form.reset();
+          precioConfirmacion.textContent = precioTotal.toFixed(2);
+
+          document.body.style.overflow = 'hidden'; // Evita scroll de fondo
+          mensaje.classList.remove('hidden');
+                  
+          const btnCerrar = document.getElementById('cerrar-mensaje');
+          btnCerrar.addEventListener('click', () => {
+            mensaje.classList.add('hidden');
+            document.body.style.overflow = ''; // Restaurar scroll
+              precioSpan.textContent = '0'; // Reiniciar el precio estimado
+
+          });
+
+          
+          mensaje.scrollIntoView({ behavior: 'smooth' });
         } else {
           alert('Error al enviar la reserva.');
         }
+
+        
       } catch (error) {
         console.error(error);
         alert('Error de conexión al enviar la reserva.');
