@@ -33,66 +33,41 @@ const trademarkNotice =
   <div class="mx-auto mt-auto w-full max-w-[85rem] px-4 pb-10 sm:px-6 lg:px-8">
     <hr class="mb-10 border-slate-200" />
 
-    <div class="grid grid-cols-2 gap-6 md:grid-cols-5">
-      {/* Company Information */}
-      <div class="col-span-full self-center xl:col-span-2">
-        <!-- <a
-          href="#"
-          class="flex-none text-xl font-semibold uppercase text-slate-700 focus:opacity-80 focus:outline-hidden"
-          aria-label="{companyName} Homepage"
-        >
-          {companyName}
-        </a>
-        <p class="mt-5 text-pretty text-slate-600 lg:w-5/12 xl:w-10/12">
-          {companyDescription}
-        </p> -->
-        <a
-        class="dm-sans flex-none text-6xl ml-23 font-light text-slate-400 focus:opacity-80 focus:outline-hidden"
-        href="/"
-        aria-label="DataNova Logo"
-        translate="no"
-        ><span class="font-semibold text-teal-700">Casas</span>Vicky</a
-      >
+    <div class="grid grid-cols-1 gap-12 md:grid-cols-3 xl:grid-cols-5">
+      <!-- LOGO -->
+      <div class="col-span-1 xl:col-span-2 flex flex-col justify-center">
+       <a
+  class="dm-sans text-3xl sm:text-4xl md:text-5xl font-light text-slate-400 block mb-6 sm:mb-0"
+  href="/"
+  aria-label="Casas Vicky logo"
+  translate="no"
+>
+  <span class="font-semibold text-teal-700">Casas</span>Vicky
+</a>
       </div>
 
-      {/* Contact Information Section */}
-      <div class="col-span-1 md:col-span-2 xl:col-span-1 xl:col-start-3">
+      <!-- INFO DE CONTACTO -->
+      <div class="col-span-1 xl:col-span-1 flex flex-col">
         <ContactInfo {...contactDetails} />
       </div>
 
-      {/* Email Subscription Form */}
-      <div class="col-span-2 md:col-span-3 xl:col-span-2">
-        <!-- <h3 class="font-semibold text-slate-700">More information?</h3>
-        <FooterForm /> -->
-
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3669.398861907045!2d-1.59145457353788!3d40.508989800018114!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd5db6d0830789db%3A0xb58c1be86bcb4f95!2s44367%20Bronchales%2C%20Teruel!5e1!3m2!1ses!2ses!4v1747649621794!5m2!1ses!2ses" width="400" height="215" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+      <!-- MAPA RESPONSIVE -->
+      <div class="col-span-1 md:col-span-2 xl:col-span-2">
+        <div class="w-full aspect-[16/9] rounded-xl overflow-hidden shadow-lg">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3669.398861907045!2d-1.59145457353788!3d40.508989800018114!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd5db6d0830789db%3A0xb58c1be86bcb4f95!2s44367%20Bronchales%2C%20Teruel!5e1!3m2!1ses!2ses!4v1747649621794!5m2!1ses!2ses"
+            width="100%"
+            height="100%"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            class="w-full h-full"
+          ></iframe>
+        </div>
       </div>
     </div>
 
-    {/* Divider before footer's bottom section */}
     <hr class="mb-5 mt-10 border-slate-200" />
-
-    <!-- <div
-      class="grid gap-y-2 sm:flex sm:items-center sm:justify-between sm:gap-y-0"
-    >
-      {/* Copyright and Crafted By Section */}
-      <p class="text-sm text-slate-400/50">
-        &copy; 2018-{copyrightYear}
-        {companyName} Crafted by
-        <a
-          href={craftedBy.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          class="font-medium underline underline-offset-2 outline-hidden ring-slate-400 transition duration-300 hover:text-slate-400 hover:decoration-dashed focus:outline-hidden focus-visible:ring-3"
-        >
-          {craftedBy.name}
-        </a>
-      </p>
-
-      {/* Trademark Notice */}
-      <p class="text-sm text-slate-400/50">
-        <Fragment set:html={trademarkNotice} />
-      </p>
-    </div> -->
   </div>
 </footer>

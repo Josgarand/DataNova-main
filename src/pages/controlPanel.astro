@@ -1,6 +1,6 @@
 ---
 import BaseLayout from "@layout/BaseLayout.astro";
-
+// export const prerender = false
 ---
 
 <BaseLayout>
@@ -90,14 +90,7 @@ import BaseLayout from "@layout/BaseLayout.astro";
 </div>
 </BaseLayout>
 
-
-
-
   <script type="module">
-
-
-
-
     // controlPanel script
 document.addEventListener("DOMContentLoaded", async () => {
   const res = await fetch("http://localhost:8080/auth/check", {

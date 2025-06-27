@@ -140,6 +140,8 @@ async function cargarFestivos() {
         return;
       }
 
+
+
       const precio = calcularPrecio(entrada, salida);
       precioSpan.textContent = precio.toFixed(2);
     }
@@ -187,6 +189,16 @@ async function cargarFestivos() {
 
       if (new Date(fecha_ini) >= new Date(fecha_fin)) {
         alert('La fecha de salida debe ser posterior a la de entrada.');
+        return;
+      }
+
+      
+      // Comprobar que la fecha de entrada no esté en el pasado
+      const hoy = new Date();
+      hoy.setHours(0, 0, 0, 0); // Eliminar horas para comparar solo fechas
+
+      if (new Date(fecha_ini) < hoy) {
+        alert('No puedes hacer una reserva en una fecha que ya ha pasado.');
         return;
       }
 

@@ -190,6 +190,15 @@ async function cargarFestivos() {
         return;
       }
 
+      
+      // Comprobar que la fecha de entrada no esté en el pasado
+      const hoy = new Date();
+      hoy.setHours(0, 0, 0, 0); // Eliminar horas para comparar solo fechas
+
+      if (new Date(fecha_ini) < hoy) {
+        alert('No puedes hacer una reserva en una fecha que ya ha pasado.');
+        return;
+      }
       const precioTotal = calcularPrecio(fecha_ini, fecha_fin);
 
       const datos = {

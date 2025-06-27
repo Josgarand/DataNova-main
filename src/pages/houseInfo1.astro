@@ -1,78 +1,127 @@
 ---
 import BaseLayout from "@/layout/BaseLayout.astro";
 ---
+
 <BaseLayout>
   <section class="bg-linear-to-b/oklch from-teal-200 via-transparent to-white">
-    <div class="mx-auto max-w-[85rem] space-y-8 px-4 pb-12 pt-48 sm:px-6 lg:px-8">
-      <div class="max-w-6xl mb-15 mx-auto px-4 space-y-16">
-
+    <div
+      class="mx-auto max-w-[85rem] space-y-8 px-4 pt-48 pb-12 sm:px-6 lg:px-8"
+    >
+      <div class="mx-auto mb-15 max-w-6xl space-y-16 px-4">
         <!-- Presentación general -->
-        <div class="flex flex-col md:flex-row mb-35 gap-8 items-center">
-          <div class="w-full md:w-1/2 h-64 bg-gray-200 flex items-center justify-center text-gray-500 text-lg">
-            <img src="/CasaRural1.png" alt="Casa rural" class="rounded-xl shadow-lg w-full object-cover" />
+        <div class="mb-35 flex flex-col items-center gap-8 md:flex-row">
+          <div
+            class="flex h-64 w-full items-center justify-center bg-gray-200 text-lg text-gray-500 md:w-1/2"
+          >
+            <img
+              src="/CasaRural1.png"
+              alt="Casa rural"
+              class="w-full rounded-xl object-cover shadow-lg"
+            />
           </div>
-          <div class="w-full md:w-1/2 space-y-4">
+          <div class="w-full space-y-4 md:w-1/2">
             <h2 class="text-3xl font-bold text-slate-800">El Lavadero</h2>
-            <p class="text-teal-600 font-semibold">Tu refugio en plena naturaleza</p>
-            <p class="text-gray-700">
-              Descubre un rincón acogedor en el corazón del pueblo, rodeado de pinares y tranquilidad. La casa El Lavadero combina el encanto rural con todas las comodidades para una estancia relajante, ya sea en pareja, en familia o con amigos.
+            <p class="font-semibold text-teal-600">
+              Casa rural categoría 3 espigas
             </p>
-            <a href="/booking1" class="inline-block bg-teal-700 text-white px-6 py-2 rounded-md hover:bg-teal-800 transition">
+            <p class="text-gray-700">
+              El Lavadero es un alojamiento espacioso y acogedor en pleno centro
+              de Bronchales, ideal para disfrutar de la naturaleza en grupo, en
+              familia o con amigos. La casa combina el encanto rural con todas
+              las comodidades modernas: estancias amplias, zonas comunes con
+              chimenea y una cocina perfectamente equipada para sentirse como en
+              casa desde el primer día.
+            </p>
+            <a
+              href="/booking1"
+              class="inline-block rounded-md bg-teal-700 px-6 py-2 text-white transition hover:bg-teal-800"
+            >
               Reservar ahora
             </a>
           </div>
         </div>
 
-
         <!-- Detalles técnicos de la casa -->
-        <div class="flex flex-col md:flex-row-reverse mb-25 gap-8 items-center bg-gray-50 p-6 rounded-lg">
-          <div class="w-full md:w-1/2 h-64 bg-gray-200 flex items-center justify-center text-gray-500 text-lg">
-            <img src="/CasaRural1.png" alt="Casa rural" class="rounded-xl shadow-lg w-full object-cover" />
+        <div
+          class="mb-25 flex flex-col items-center gap-8 rounded-lg bg-gray-50 p-6 md:flex-row-reverse"
+        >
+          <div
+            class="flex h-64 w-full items-center justify-center bg-gray-200 text-lg text-gray-500 md:w-1/2"
+          >
+            <img
+              src="/CasaRural1.png"
+              alt="Casa rural"
+              class="w-full rounded-xl object-cover shadow-lg"
+            />
           </div>
-          <div class="w-full md:w-1/2 space-y-4">
-            <h2 class="text-2xl font-bold text-slate-800">Características de la casa</h2>
-            <ul class="text-gray-700 list-disc list-inside space-y-2">
-              <li>3 habitaciones dobles:
-                <ul class="list-inside list-disc ml-5">
-                  <li>1 con cama de matrimonio y terraza</li>
-                  <li>1 con cama de matrimonio</li>
-                  <li>1 con dos camas individuales</li>
+          <div class="w-full space-y-4 md:w-1/2">
+            <h2 class="text-2xl font-bold text-slate-800">
+              Características de la casa
+            </h2>
+            <ul class="list-inside list-disc space-y-2 text-gray-700">
+              <li>
+                6 habitaciones dobles con baño y televisión:
+                <ul class="ml-5 list-inside list-disc">
+                  <li>3 con cama de matrimonio (135 cm)</li>
+                  <li>3 con dos camas individuales (90 cm)</li>
                 </ul>
               </li>
-              <li>Salón-comedor amplio con chimenea y sofá cama</li>
-              <li>Cocina totalmente equipada con acceso al jardín</li>
-              <li>2 baños completos</li>
-              <li>Televisión, microondas y calefacción</li>
-              <li>Jardín privado y garaje</li>
+              <li>Cocina-comedor con chimenea y TV</li>
+              <li>Salón con chimenea y TV</li>
+              <li>1 aseo independiente adicional</li>
+              <li>Calefacción central con termostatos independientes</li>
+              <li>WiFi y aparcamiento público cercano</li>
+              <li>Incluye ropa de cama, toallas y equipamiento de cocina</li>
+              <li>
+                Electrodomésticos: lavadora, microondas, horno, nevera,
+                tostadora, lavavajillas, plancha de ropa
+              </li>
+              <li>Cuna disponible bajo demanda con antelación</li>
             </ul>
           </div>
         </div>
 
         <!-- Carrusel de imágenes -->
         <div class="relative mt-10 px-10">
-          <div class="swiper mySwiper rounded-xl overflow-hidden shadow-lg h-[400px]">
+          <div
+            class="swiper mySwiper h-[400px] overflow-hidden rounded-xl shadow-lg"
+          >
             <div class="swiper-wrapper">
               <div class="swiper-slide">
-                <img src="/CasaRural1.png" alt="Imagen de la casa rural" class="w-full h-full object-cover" />
+                <img
+                  src="/CasaRural1.png"
+                  alt="Imagen de la casa rural"
+                  class="h-full w-full object-cover"
+                />
               </div>
               <div class="swiper-slide">
-                <img src="/CasaRural1.png" alt="Imagen de la casa rural" class="w-full h-full object-cover" />
+                <img
+                  src="/CasaRural1.png"
+                  alt="Imagen de la casa rural"
+                  class="h-full w-full object-cover"
+                />
               </div>
               <div class="swiper-slide">
-                <img src="/CasaRural1.png" alt="Imagen de la casa rural" class="w-full h-full object-cover" />
+                <img
+                  src="/CasaRural1.png"
+                  alt="Imagen de la casa rural"
+                  class="h-full w-full object-cover"
+                />
               </div>
             </div>
           </div>
 
           <!-- Flechas -->
-          <div class="swiper-button-prev !absolute !top-1/2 !left-1 -translate-y-1/2 
-                      !text-teal-700 !text-4xl z-10"></div>
-          <div class="swiper-button-next !absolute !top-1/2 !right-1 -translate-y-1/2 
-                      !text-teal-700 !text-4xl z-10"></div>
-          <div class="swiper-pagination mt-3 text-center !static"></div>
+          <div
+            class="swiper-button-prev !absolute !top-1/2 !left-1 z-10 -translate-y-1/2 !text-4xl !text-teal-700"
+          >
+          </div>
+          <div
+            class="swiper-button-next !absolute !top-1/2 !right-1 z-10 -translate-y-1/2 !text-4xl !text-teal-700"
+          >
+          </div>
+          <div class="swiper-pagination !static mt-3 text-center"></div>
         </div>
-
-        
       </div>
     </div>
   </section>
@@ -84,17 +133,19 @@ import BaseLayout from "@/layout/BaseLayout.astro";
   />
 
   <script type="module">
-    document.addEventListener('astro:page-load', () => {
-      import('https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs').then(({ default: Swiper }) => {
-        new Swiper('.mySwiper', {
+    document.addEventListener("astro:page-load", () => {
+      import(
+        "https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.mjs"
+      ).then(({ default: Swiper }) => {
+        new Swiper(".mySwiper", {
           loop: true,
           pagination: {
-            el: '.swiper-pagination',
-            clickable: true
+            el: ".swiper-pagination",
+            clickable: true,
           },
           navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev'
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
           },
         });
       });

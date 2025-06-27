@@ -10,6 +10,8 @@ import svelte from "@astrojs/svelte";
 
 // https://astro.build/config
 export default defineConfig({
+
+  
   // The `site` property specifies the base URL for your site.
   // Be sure to update this to your own domain (e.g., "https://yourdomain.com") before deploying.
   site: "https://data-nova.vercel.app",
@@ -27,8 +29,12 @@ export default defineConfig({
   ],
   vite: {
     plugins: [tailwindcss()],
+
+    
   },
   // output: "server",
   output: "static",
   adapter: vercel(),
+
+
 });

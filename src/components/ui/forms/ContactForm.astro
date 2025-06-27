@@ -1,7 +1,11 @@
-<form id="contact-form" class="p-4" aria-label="Formulario de contacto">
+---
+---
+
+<!-- // Formulario sin script en front, todo inline -->
+
+<form id="contact-form" class="p-4" aria-label="Formulario de contacto" novalidate>
   <div class="space-y-4">
     <!-- Nombre -->
-
     <div class="relative">
       <input
         type="text"
@@ -12,7 +16,6 @@
         required
         aria-labelledby="label-nombre"
       />
-
       <label
         id="label-nombre"
         for="nombre"
@@ -23,7 +26,6 @@
     </div>
 
     <!-- Correo electrónico -->
-
     <div class="relative">
       <input
         type="email"
@@ -34,7 +36,6 @@
         required
         aria-labelledby="label-correo"
       />
-
       <label
         id="label-correo"
         for="correo"
@@ -45,7 +46,6 @@
     </div>
 
     <!-- Teléfono -->
-
     <div class="relative">
       <input
         type="tel"
@@ -55,7 +55,6 @@
         placeholder="Teléfono"
         aria-labelledby="label-telefono"
       />
-
       <label
         id="label-telefono"
         for="telefono"
@@ -66,7 +65,6 @@
     </div>
 
     <!-- Mensaje -->
-
     <div class="relative">
       <textarea
         id="mensaje"
@@ -74,8 +72,8 @@
         class="peer block w-full rounded-lg border border-transparent p-4 text-sm not-placeholder-shown:pt-6 not-placeholder-shown:pb-2 placeholder:text-transparent autofill:pt-6 autofill:pb-2 focus:border-teal-700/80 focus:pt-6 focus:pb-2 focus:ring-2 focus:ring-teal-700/80 focus:outline-hidden"
         placeholder="Mensaje *"
         required
-        aria-labelledby="label-mensaje"></textarea>
-
+        aria-labelledby="label-mensaje"
+      ></textarea>
       <label
         id="label-mensaje"
         for="mensaje"
@@ -86,82 +84,140 @@
     </div>
   </div>
 
-  <div class="mt-8">
+  <div class="mt-8 flex items-center justify-center space-x-3">
     <button
       type="submit"
       class="inline-flex items-center rounded-lg bg-teal-100 px-6 py-2 font-medium text-slate-700 transition-colors duration-300 hover:bg-teal-700/80 hover:text-white focus:bg-teal-700/80 focus:outline-hidden"
+      aria-live="polite"
+      aria-busy="false"
     >
       Enviar
     </button>
+
+    <svg
+      id="spinner"
+      class="hidden animate-spin h-6 w-6 text-teal-700"
+      xmlns="http://www.w3.org/2000/svg"
+      fill="none"
+      viewBox="0 0 24 24"
+      aria-hidden="true"
+    >
+      <circle
+        class="opacity-25"
+        cx="12"
+        cy="12"
+        r="10"
+        stroke="currentColor"
+        stroke-width="4"
+      ></circle>
+      <path
+        class="opacity-75"
+        fill="currentColor"
+        d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+      ></path>
+    </svg>
   </div>
 
-  <p id="form-status" class="mt-4 text-center text-sm text-gray-700"></p>
+  <p
+    id="form-status"
+    class="mt-4 text-center text-sm text-gray-700 transition-opacity duration-500"
+    aria-live="polite"
+    role="alert"
+  ></p>
 </form>
 
-<script>
-  // Aquí indicamos que 'form' es un HTMLFormElement (no un genérico HTMLElement)
+<!-- Toast para mensajes -->
+<div
+  id="toast"
+  class="fixed top-1/2 left-1/2 max-w-xs rounded-lg p-4 font-medium text-white opacity-0 pointer-events-none transition-opacity duration-300 transform -translate-x-1/2 -translate-y-1/2"
+></div>
 
-  const form = document.getElementById(
-    "contact-form"
-  ) as HTMLFormElement | null;
+<script is:inline>
+  (() => {
+    const form = document.getElementById("contact-form");
+    const spinner = document.getElementById("spinner");
+    const submitButton = form.querySelector("button[type=submit]");
+    const toast = document.getElementById("toast");
 
-  const status = document.getElementById("form-status");
+    if (!form || !spinner || !submitButton || !toast) return;
 
-  if (!form || !status) {
-    console.error("El formulario o el estado no se encontraron en el DOM.");
-  } else {
+    function showStatusMessage(message, isError = false) {
+      toast.textContent = message;
+
+      if (isError) {
+        toast.classList.add("bg-red-600", "shadow-lg");
+        toast.classList.remove("bg-teal-500", "shadow-teal-400");
+      } else {
+        toast.classList.add("bg-teal-900");
+        toast.classList.remove("bg-red-600", "shadow-lg");
+      }
+
+      toast.classList.add("opacity-100", "pointer-events-auto");
+      toast.classList.remove("opacity-0", "pointer-events-none");
+
+      setTimeout(() => {
+        toast.classList.remove("opacity-100", "pointer-events-auto");
+        toast.classList.add("opacity-0", "pointer-events-none");
+        toast.textContent = "";
+      }, 4000);
+    }
+
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
 
-      status.textContent = "Enviando..."; // Ahora accedemos a los campos como inputs dentro del form usando form.elements
+      const nombreInput = form.elements.namedItem("nombre");
+      const correoInput = form.elements.namedItem("correo");
+      const telefonoInput = form.elements.namedItem("telefono");
+      const mensajeInput = form.elements.namedItem("mensaje");
 
-      const data = {
-        nombre: (
-          form.elements.namedItem("nombre") as HTMLInputElement
-        ).value.trim(),
-
-        correo: (
-          form.elements.namedItem("correo") as HTMLInputElement
-        ).value.trim(),
-
-        telefono: (
-          form.elements.namedItem("telefono") as HTMLInputElement
-        ).value.trim(),
-
-        mensaje: (
-          form.elements.namedItem("mensaje") as HTMLTextAreaElement
-        ).value.trim(),
-      };
-
-      if (!data.nombre || !data.correo || !data.mensaje) {
-        status.textContent =
-          "Por favor, rellena todos los campos obligatorios.";
-
+      if (
+        !nombreInput ||
+        !correoInput ||
+        !mensajeInput ||
+        !(nombreInput instanceof HTMLInputElement) ||
+        !(correoInput instanceof HTMLInputElement) ||
+        !(telefonoInput instanceof HTMLInputElement) &&
+        telefonoInput !== null &&
+        !(mensajeInput instanceof HTMLTextAreaElement)
+      ) {
+        showStatusMessage("Error interno en el formulario.", true);
         return;
       }
+
+      const nombre = nombreInput.value.trim();
+      const correo = correoInput.value.trim();
+      const telefono = telefonoInput ? telefonoInput.value.trim() : "";
+      const mensaje = mensajeInput.value.trim();
+
+      if (!nombre || !correo || !mensaje) {
+        showStatusMessage("Por favor, rellena todos los campos obligatorios.", true);
+        return;
+      }
+
+      spinner.classList.remove("hidden");
+      submitButton.disabled = true;
+      submitButton.setAttribute("aria-busy", "true");
 
       try {
         const response = await fetch("http://localhost:8080/contacto", {
           method: "POST",
-
-          headers: {
-            "Content-Type": "application/json",
-          },
-
-          body: JSON.stringify(data),
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ nombre, correo, telefono, mensaje }),
         });
 
         if (response.ok) {
-          status.textContent = "Mensaje enviado correctamente.";
-
-          form.reset(); // ahora sí es válido porque form es HTMLFormElement
+          showStatusMessage("Mensaje enviado correctamente.");
+          form.reset();
         } else {
-          status.textContent =
-            "Error al enviar el mensaje. Inténtalo más tarde.";
+          showStatusMessage("Error al enviar el mensaje. Inténtalo más tarde.", true);
         }
-      } catch (error) {
-        status.textContent = "Error en la conexión. Inténtalo más tarde.";
+      } catch {
+        showStatusMessage("Error en la conexión. Inténtalo más tarde.", true);
+      } finally {
+        spinner.classList.add("hidden");
+        submitButton.disabled = false;
+        submitButton.setAttribute("aria-busy", "false");
       }
     });
-  }
+  })();
 </script>

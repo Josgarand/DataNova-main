@@ -1,22 +1,45 @@
 ---
-import HouseElection from "@/components/sections/HouseElection.astro";
+import HouseCard from "@/components/common/HousesIndexContent.astro";
 import BaseLayout from "@layout/BaseLayout.astro";
-import House from "@sections/HouseIndexSection.astro";
-import Houses from "@sections/HousesIndexSection.astro";
-// import Hero from "@sections/HeroSection.astro";
-// import FeatureShowcase from "@sections/FeatureShowcase.astro";
-// import FeatureBento from "@sections/FeatureBento.astro";
-// import FeatureAnimated from "@sections/FeatureAnimated.astro";
-// import FeatureGrid from "@sections/FeatureGrid.astro";
-// import CTA from "@sections/CTA.astro";
+import Button from "@ui/Button.astro";
+
+const houseData = {
+  title: "Escápate a la naturaleza",
+  description_subtitle: "Desconecta del ruido. Reconecta contigo.",
+  description: `En Bronchales, a 1.569 metros de altitud, te esperan paisajes espectaculares, aire puro y una tranquilidad difícil de encontrar. Pero a diferencia de otros pueblos del entorno, aquí contarás con servicios que marcan la diferencia: panadería artesanal, supermercado, carnicería local La Tinaja, secadero de jamones, farmacia, e incluso ambulatorio. Todo ello sin perder el carácter acogedor y auténtico del entorno rural.
+
+Nuestras casas rurales te ofrecen el descanso que necesitas con todas las comodidades para una estancia inolvidable.`,
+};
+
+const casas = [
+  {
+    title: "El lavadero",
+    description: "Ubicado en la urbanización ‘El Ciervo’ con capacidad para 12 personas, rodeado de jardines y con unas hermosas vistas al bosque de pinos.",
+    image: "/CasaRural1.png",
+    link: "/houseInfo1",
+  },
+  {
+    title: "Casa Ricardo apartamento 1",
+    description: "Acogedora y luminosa, ideal para 6 personas. Disfruta de todas las comodidades y el silencio de la naturaleza.",
+    image: "/CasaRural1.png",
+    link: "/houseInfo2",
+  },
+  {
+    title: "Casa Ricardo apartamento 2",
+    description: "Se encuentra en el mismo edificio que el alojamiento anterior, pero con acceso independiente. Tiene capacidad para 4 personas.",
+    image: "/CasaRural1.png",
+    link: "/houseInfo3",
+  },
+];
 ---
 
 <BaseLayout>
-  <House />
+
+     <!-- <House /> -->
 
 
-  <HouseElection/>
-  <Houses />
+  <!-- <HouseElection/> -->
+  <!-- <Houses /> -->
   <!-- <Hero /> -->
 
   <!-- <FeatureShowcase /> -->
@@ -28,4 +51,104 @@ import Houses from "@sections/HousesIndexSection.astro";
   <!-- <FeatureGrid /> -->
 
   <!-- <CTA /> -->
+
+  
+  <!-- HERO -->
+  <section class="bg-linear-to-b/oklch from-teal-200 pt-20 via-transparent to-white">
+    <div class="mx-auto max-w-[85rem] px-4 py-28 sm:px-6 lg:px-8">
+      <div class="flex flex-col lg:flex-row items-center gap-12">
+        <!-- Texto -->
+<div class="lg:w-1/2 space-y-6 whitespace-pre-line max-w-full">
+  <h1 class="text-5xl sm:text-6xl font-bold text-slate-800 leading-tight">
+    {houseData.title}
+  </h1>
+  <p class="text-xl font-semibold text-teal-700">
+    {houseData.description_subtitle}
+  </p>
+  <p class="text-lg text-slate-700">
+    {houseData.description}
+  </p>
+  <Button href="#casas" variant="primary" className="mt-7 px-6 py-3 text-lg whitespace-nowrap">
+    Ver casas
+  </Button>
+</div>
+
+        <!-- Imagen -->
+        <div class="lg:w-1/2">
+          <img
+            src="/CasaRural1.png"
+            alt="Casa rural"
+            class="rounded-xl shadow-xl w-full object-cover"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MOTIVOS PARA ELEGIRNOS -->
+  <section class="bg-white py-5 px-4 md:px-12">
+    <div class="max-w-6xl mx-auto text-center">
+      <h2 class="text-4xl font-bold text-green-800 mb-12">
+        ¿Por qué elegir nuestras casas rurales en Bronchales?
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10 text-left text-gray-700">
+        <div class="flex items-start gap-4">
+          <span class="text-3xl text-green-600">🌲</span>
+          <div>
+            <h3 class="font-semibold text-lg">Naturaleza en estado puro</h3>
+            <p>Ubicadas en la Sierra de Albarracín, rodeadas de pinares centenarios y aire fresco.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <span class="text-3xl text-green-600">🛏️</span>
+          <div>
+            <h3 class="font-semibold text-lg">Máxima comodidad</h3>
+            <p>Casas totalmente equipadas con todo lo necesario para que te sientas como en casa, en cualquier época del año.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <span class="text-3xl text-green-600">🔇</span>
+          <div>
+            <h3 class="font-semibold text-lg">Descanso garantizado</h3>
+            <p>Entorno tranquilo y silencioso, ideal para desconectar del ritmo diario.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4">
+          <span class="text-3xl text-green-600">🚗</span>
+          <div>
+            <h3 class="font-semibold text-lg">Cerca de todo, lejos del ruido</h3>
+            <p>A pocos minutos de rutas de senderismo, pozas naturales y el encanto medieval de Albarracín.</p>
+          </div>
+        </div>
+        <div class="flex items-start gap-4 md:col-span-2">
+          <span class="text-3xl text-green-600">🌌</span>
+          <div>
+            <h3 class="font-semibold text-lg">Experiencias únicas</h3>
+            <p>Observación de estrellas, micología en otoño, nieve en invierno… cada estación ofrece algo especial.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NUESTRAS CASAS -->
+  <section class="py-10 bg-gray-50" id="casas">
+    <div class="max-w-7xl mx-auto px-4 text-center">
+      <h2 class="text-4xl font-bold text-slate-800 mb-16">Nuestras casas</h2>
+      <div class="grid gap-10 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
+        {casas.map((casa) => (
+          <HouseCard {...casa} />
+        ))}
+      </div>
+
+      <div class="mt-20 flex justify-center">
+        <a 
+          href="/housesBooking"
+          class="bg-teal-700 hover:bg-teal-800 text-white font-semibold text-lg py-4 px-10 rounded-xl shadow-lg transition-all duration-300"
+        >
+          RESERVAR AHORA
+        </a>
+      </div>
+    </div>
+  </section>
 </BaseLayout>
